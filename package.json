@@ -24,7 +24,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "kwon-ui": "./bin/kwon-ui.mjs"
+    "kwon-ui": "bin/kwon-ui.mjs"
   },
   "files": [
     "dist",
