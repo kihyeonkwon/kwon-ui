@@ -1,0 +1,30 @@
+/*
+ * 바탕. 페이지 맨 바깥 요소에 .night 를 붙이면 그 안이 검은 화면이 된다.
+ * 여백(margin)과 글꼴 지정은 넣지 않는다: 앱의 초기화 규칙과 Tailwind 유틸리티가 그대로 먹어야 한다.
+ */
+.night {
+  background: var(--n-bg);
+  color: var(--n-hi);
+  font-weight: 400;
+  overflow-x: clip;
+  /* 한글은 낱말 단위로만 줄을 바꾼다(글자 중간에서 끊지 않는다) */
+  word-break: keep-all;
+}
+/* 스크롤 끝에서 흰 바탕이 비치지 않게 문서 바탕도 검정으로 덮는다 */
+html:has(.night),
+html:has(.night) body {
+  background: #000000;
+}
+
+/* 화면에는 안 보이고 화면 낭독기만 읽는 글(두 톤 제목 앞의 구간 이름) */
+.night .n-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

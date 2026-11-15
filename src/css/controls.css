@@ -1,0 +1,62 @@
+/*
+ * 조작부. 첫 화면과 띠에는 버튼 하나(알약)와 글자 링크 하나까지만 둔다.
+ */
+
+/* 알약 버튼: 높이 48, 흰 면. ghost 는 어두운 면 */
+.night .n-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: var(--n-radius-pill);
+  background: var(--n-btn);
+  color: var(--n-btn-ink);
+  font-size: var(--n-fs-control);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+.night .n-pill:hover {
+  background: var(--n-btn-hover);
+}
+.night .n-pill.ghost {
+  background: var(--n-ghost);
+  color: var(--n-hi);
+}
+.night .n-pill.ghost:hover {
+  background: var(--n-ghost-hover);
+}
+.night .n-pill:focus-visible {
+  outline: 2px solid var(--n-focus);
+  outline-offset: 3px;
+}
+
+/* 글자 링크: 버튼 옆의 둘째 행동, 본문 아래의 '더 보기' */
+.night .n-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--n-fs-control);
+  font-weight: 500;
+  color: var(--n-hi);
+  transition: opacity 0.2s;
+}
+.night .n-link:hover {
+  opacity: 0.7;
+}
+
+/* 버튼과 링크를 나란히 놓는 줄 */
+.night .n-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 32px;
+}
+.night .n-page-head > .n-actions {
+  margin-top: 48px;
+}

@@ -1,0 +1,60 @@
+/*
+ * 글자. 읽는 글자 크기는 화면마다 셋이다: 제목(n-title), 본문(n-body), 작은 글(n-small).
+ * n-display 는 첫 화면 제목에만 쓴다. 위계는 굵기 대신 두 톤(--n-hi, --n-mid)으로 만든다.
+ * 굵기는 제목 500, 본문 400 두 가지다.
+ */
+.night .n-display {
+  font-size: var(--n-fs-display);
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  color: var(--n-hi);
+}
+.night .n-title {
+  font-size: var(--n-fs-title);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  color: var(--n-hi);
+}
+/* 여러 줄 제목은 줄 길이를 고르게 맞춘다 */
+.night :is(.n-display, .n-title) {
+  text-wrap: balance;
+}
+/* 두 톤: 제목 안에서 받쳐 주는 말. lo 는 줄을 바꿔서, lo-inline 은 같은 줄에서 회색 */
+.night .n-title .lo,
+.night .n-display .lo {
+  display: block;
+  color: var(--n-mid);
+}
+.night .n-title .lo-inline,
+.night .n-display .lo-inline {
+  color: var(--n-mid);
+}
+.night .n-body {
+  font-size: var(--n-fs-body);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--n-soft);
+  /* 마지막 줄에 낱말 하나만 남지 않게 */
+  text-wrap: pretty;
+}
+/* 목록이나 카드 안의 작은 제목. 본문과 같은 크기이고 진한 글자 */
+.night .n-card-title {
+  font-size: var(--n-fs-body);
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--n-hi);
+}
+.night .n-small {
+  font-size: var(--n-fs-small);
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--n-mid);
+}
+/* 숫자가 세로로 줄이 맞아야 하는 곳(연도, 금액) */
+.night .n-num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}

@@ -1,0 +1,334 @@
+import type { ReactNode } from "react";
+import {
+  Actions,
+  Body,
+  CardTitle,
+  CtaBand,
+  Display,
+  Media,
+  PageHead,
+  Panel,
+  Pill,
+  Row,
+  Rows,
+  SectionHead,
+  Small,
+  TextLink,
+  Title,
+} from "../react/index.js";
+
+/*
+ * 카탈로그의 원본. CATALOG.md(모델과 사람이 읽는 목록)와 site/index.html(실제로 그려지는 페이지)이
+ * 둘 다 여기서 만들어진다. 조각을 더하거나 바꾸면 이 파일의 항목도 같이 고친다.
+ */
+
+export type Entry = {
+  /** 대표 클래스 이름. CATALOG.md 와 페이지의 닻 */
+  id: string;
+  group: "글자" | "뼈대" | "조작부";
+  /** 보이는 이름 */
+  name: string;
+  /** 컴포넌트 이름(없으면 클래스만 있는 조각) */
+  component?: string;
+  /** 이 조각이 쓰는 클래스 */
+  classes: string[];
+  /** 언제 쓰나 */
+  use: string;
+  /** 쓰지 않는 경우 */
+  avoid?: string;
+  /** 사용 예(JSX) */
+  code: string;
+  /** 카탈로그 페이지에 그릴 예. 없으면 코드만 보인다 */
+  render?: () => ReactNode;
+};
+
+export const GROUPS: { name: Entry["group"]; line: string; note: string }[] = [
+  { name: "글자", line: "읽는 글자 크기는 **셋**입니다", note: "제목, 본문, 작은 글. 위계는 굵기 대신 진한 글자와 회색 두 톤으로 만듭니다." },
+  { name: "뼈대", line: "글은 **한 줄기**로 흐릅니다", note: "왼쪽에 제목이나 작은 라벨, 오른쪽 한 칸에 본문을 둡니다." },
+  { name: "조작부", line: "버튼은 **하나**, 링크도 하나", note: "한 화면의 주 행동은 알약 버튼 하나입니다. 둘째 행동은 글자 링크로 둡니다." },
+];
+
+export const ENTRIES: Entry[] = [
+  {
+    id: "n-display",
+    group: "글자",
+    name: "첫 화면 제목",
+    component: "Display",
+    classes: ["n-display"],
+    use: "첫 화면의 제목. 한 페이지에 한 번만 씁니다.",
+    avoid: "구간 제목에는 쓰지 않습니다(Title).",
+    code: `<Display line="**기술과 사람** 사이를 공부합니다" />`,
+    render: () => <Display as="p" line="**기술과 사람** 사이를 공부합니다" />,
+  },
+  {
+    id: "n-title",
+    group: "글자",
+    name: "구간 제목",
+    component: "Title",
+    classes: ["n-title", "lo-inline"],
+    use: "구간과 페이지의 제목. 한 문장 한 줄로 쓰고, ** 로 감싼 핵심 낱말 한두 개만 진하게 둡니다.",
+    avoid: "제목과 부제를 두 줄로 쌓지 않습니다. 숫자는 숫자가 요점일 때만 진하게 둡니다.",
+    code: `<Title line="**문헌 조사**부터 **논문 작성**까지 다룹니다" label="교육 내용" />`,
+    render: () => <Title as="p" line="**문헌 조사**부터 **논문 작성**까지 다룹니다" label="교육 내용" />,
+  },
+  {
+    id: "n-body",
+    group: "글자",
+    name: "본문",
+    component: "Body",
+    classes: ["n-body"],
+    use: "읽는 문단. 한 구간에 한두 문단까지 둡니다.",
+    code: `<Body>현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다.</Body>`,
+    render: () => <Body>현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다. 만든 뒤에는 실제 사용 기록을 보고 고칩니다.</Body>,
+  },
+  {
+    id: "n-card-title",
+    group: "글자",
+    name: "작은 제목",
+    component: "CardTitle",
+    classes: ["n-card-title"],
+    use: "목록 줄이나 카드 안의 제목. 본문과 같은 크기이고 진한 글자입니다.",
+    code: `<CardTitle>임원 AI 워크숍</CardTitle>`,
+    render: () => <CardTitle as="p">임원 AI 워크숍</CardTitle>,
+  },
+  {
+    id: "n-small",
+    group: "글자",
+    name: "작은 글",
+    component: "Small",
+    classes: ["n-small", "n-num"],
+    use: "캡션, 기준, 라벨. 숫자 폭을 맞춰야 하면 num 을 줍니다.",
+    avoid: "본문을 작은 글로 줄여 넣지 않습니다. 길면 빼거나 접습니다.",
+    code: `<Small>홈페이지로 접수된 문의 기준입니다.</Small>\n<Small num>2022 ~ 2026</Small>`,
+    render: () => (
+      <>
+        <Small>홈페이지로 접수된 문의 기준입니다.</Small>
+        <Small num>2022 ~ 2026</Small>
+      </>
+    ),
+  },
+  {
+    id: "n-page",
+    group: "뼈대",
+    name: "페이지와 페이지 머리",
+    component: "Page, PageHead",
+    classes: ["night", "n-page", "n-page-head", "n-wrap"],
+    use: "하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다.",
+    code: `<Page>\n  <PageHead\n    title="교육 과정"\n    lead="직무와 수준에 맞춰 고르실 수 있습니다."\n    actions={<Pill as={Link} href="/contact">교육 문의하기</Pill>}\n  />\n  …\n</Page>`,
+    render: () => (
+      <PageHead
+        title="교육 과정"
+        lead="직무와 수준에 맞춰 고르실 수 있습니다."
+        actions={
+          <>
+            <Pill href="#n-page">교육 문의하기</Pill>
+            <TextLink href="#n-page" arrow>
+              과정 안내서 받기
+            </TextLink>
+          </>
+        }
+      />
+    ),
+  },
+  {
+    id: "n-sect",
+    group: "뼈대",
+    name: "구간",
+    component: "Section",
+    classes: ["n-sect", "n-wrap"],
+    use: "페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다.",
+    avoid: "여백을 구간마다 따로 정하지 않습니다.",
+    code: `<Section id="courses">\n  <SectionHead title="**직무별** 교육 과정" />\n  …\n</Section>`,
+  },
+  {
+    id: "n-head",
+    group: "뼈대",
+    name: "구간 머리",
+    component: "SectionHead",
+    classes: ["n-head", "ruled", "n-title", "n-body"],
+    use: "구간의 시작. 왼쪽에 한 줄 제목, 오른쪽에 본문. rule 을 주면 가는 선 아래에서 시작합니다.",
+    avoid: "본문에는 진한 강조를 두지 않습니다. 제목 칸에는 한 줄에 15자 안팎이 들어갑니다.",
+    code: `<SectionHead rule title="**연구실 상황**에 맞춰 범위를 정합니다" label="진행 방식">\n  <Body>연구 분야와 일정을 알려 주시면 범위와 시간을 함께 정합니다.</Body>\n</SectionHead>`,
+    render: () => (
+      <SectionHead rule title="**연구실 상황**에 맞춰 범위를 정합니다" label="진행 방식" as="h3">
+        <Body>연구 분야와 일정을 알려 주시면 범위와 시간을 함께 정합니다.</Body>
+      </SectionHead>
+    ),
+  },
+  {
+    id: "n-rule",
+    group: "뼈대",
+    name: "가는 선",
+    classes: ["n-rule"],
+    use: "내용 위에 가는 선 하나를 긋습니다. 구간 머리의 선은 SectionHead 의 rule 로 긋습니다.",
+    avoid: "상자 테두리로 쓰지 않습니다. 구분은 선 하나와 여백으로 합니다.",
+    code: `<div className="n-rule">…</div>`,
+    render: () => (
+      <div className="n-rule">
+        <Small>선 아래의 내용</Small>
+      </div>
+    ),
+  },
+  {
+    id: "n-rows",
+    group: "뼈대",
+    name: "줄 목록",
+    component: "Rows, Row",
+    classes: ["n-rows", "n-row", "n-row-label", "wide-label"],
+    use: "항목이 여럿일 때. 왼쪽 200px 에 작은 라벨, 오른쪽에 본문 한 칸.",
+    avoid: "한 줄을 번호, 이름, 설명 세 칸으로 나누지 않습니다.",
+    code: `<Rows as="ol">\n  <Row as="li" label="업무 파악">현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다.</Row>\n  <Row as="li" label="유연한 협업">필요한 만큼 만들고, 쓰면서 범위를 조정합니다.</Row>\n</Rows>`,
+    render: () => (
+      <Rows as="ol">
+        <Row as="li" label="업무 파악" labelAs="p">
+          현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다.
+        </Row>
+        <Row as="li" label="유연한 협업" labelAs="p">
+          필요한 만큼 만들고, 쓰면서 범위를 조정합니다.
+        </Row>
+        <Row as="li" label="지속적인 개선" labelAs="p">
+          사용 기록을 보고 다음에 고칠 것을 함께 정합니다.
+        </Row>
+      </Rows>
+    ),
+  },
+  {
+    id: "n-panel",
+    group: "뼈대",
+    name: "검은 판",
+    component: "Panel",
+    classes: ["n-panel", "n-wrap"],
+    use: "앞뒤 구간과 구분해야 하는 구간 하나(후기, 수강료처럼). 한 페이지에 두세 번까지.",
+    avoid: "모든 구간을 판으로 감싸지 않습니다.",
+    code: `<Panel id="price">\n  <SectionHead title="한 번 결제로 **1년간 수강**합니다" />\n  …\n</Panel>`,
+    render: () => (
+      <Panel as="div">
+        <SectionHead title="한 번 결제로 **1년간 수강**합니다" as="h3">
+          <Body>자동으로 갱신되거나 추가로 청구되지 않습니다.</Body>
+        </SectionHead>
+      </Panel>
+    ),
+  },
+  {
+    id: "n-media",
+    group: "뼈대",
+    name: "그림 틀",
+    component: "Media",
+    classes: ["n-media", "wide"],
+    use: "그림과 영상을 담는 틀. 기본 4:3, wide 는 16:9. 안의 img, video 가 틀을 채웁니다.",
+    code: `<Media wide>\n  <video src="/lab.mp4" muted loop playsInline />\n</Media>`,
+    render: () => <Media wide />,
+  },
+  {
+    id: "n-timeline",
+    group: "뼈대",
+    name: "연도별 이력",
+    classes: ["n-timeline", "n-tl-year", "n-tl-more", "chev"],
+    use: "해마다 쌓인 이력. 왼쪽에 연도, 오른쪽에 그 해의 줄들. 많으면 앞의 몇 줄만 보이고 '외 N건'으로 접습니다.",
+    code: `<div className="n-timeline">\n  <div className="n-tl-year">\n    <p className="n-card-title n-num">2026</p>\n    <ul>\n      <li className="n-body">임원 AI 워크숍</li>\n      <li className="n-tl-more">\n        <details>\n          <summary className="n-small">외 12건 <span className="chev" aria-hidden>→</span></summary>\n          …\n        </details>\n      </li>\n    </ul>\n  </div>\n</div>`,
+    render: () => (
+      <div className="n-timeline">
+        {[
+          { year: "2026", items: ["임원 AI 워크숍", "직무별 AI 실무 과정"], more: 12 },
+          { year: "2025", items: ["데이터 분석 실습 과정", "신입사원 AI 기초"], more: 0 },
+        ].map((g) => (
+          <div className="n-tl-year" key={g.year}>
+            <p className="n-card-title n-num">{g.year}</p>
+            <ul>
+              {g.items.map((t) => (
+                <li className="n-body" key={t}>
+                  {t}
+                </li>
+              ))}
+              {g.more ? (
+                <li className="n-tl-more">
+                  <details>
+                    <summary className="n-small">
+                      외 {g.more}건{" "}
+                      <span className="chev" aria-hidden="true">
+                        →
+                      </span>
+                    </summary>
+                    <p className="n-small">접힌 줄이 여기에 이어집니다.</p>
+                  </details>
+                </li>
+              ) : null}
+            </ul>
+          </div>
+        ))}
+      </div>
+    ),
+  },
+  {
+    id: "n-cta-band",
+    group: "뼈대",
+    name: "문의 띠",
+    component: "CtaBand",
+    classes: ["n-cta-band", "n-actions"],
+    use: "페이지 끝의 마지막 행동. 왼쪽에 한 줄 문장, 오른쪽에 버튼 줄. 한 페이지에 하나.",
+    code: `<CtaBand\n  title="**시간표**와 **견적서**를 바로 받아 보세요"\n  label="교육 문의"\n  actions={<>\n    <Pill as={Link} href="/contact">교육 문의하기</Pill>\n    <TextLink as={Link} href="/courses" arrow>교육 과정 보기</TextLink>\n  </>}\n/>`,
+    render: () => (
+      <CtaBand
+        title="**시간표**와 **견적서**를 바로 받아 보세요"
+        label="교육 문의"
+        actions={
+          <>
+            <Pill href="#n-cta-band">교육 문의하기</Pill>
+            <TextLink href="#n-cta-band" arrow>
+              교육 과정 보기
+            </TextLink>
+          </>
+        }
+      />
+    ),
+  },
+  {
+    id: "n-pill",
+    group: "조작부",
+    name: "알약 버튼",
+    component: "Pill",
+    classes: ["n-pill", "ghost"],
+    use: "한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때).",
+    avoid: "흰 버튼 둘을 나란히 두지 않습니다.",
+    code: `<Pill as={Link} href="/contact">교육 문의하기</Pill>\n<Pill as="button" type="button" ghost onClick={open}>진단 시작</Pill>`,
+    render: () => (
+      <Actions>
+        <Pill href="#n-pill">교육 문의하기</Pill>
+        <Pill href="#n-pill" ghost>
+          진단 시작
+        </Pill>
+      </Actions>
+    ),
+  },
+  {
+    id: "n-link",
+    group: "조작부",
+    name: "글자 링크",
+    component: "TextLink",
+    classes: ["n-link"],
+    use: "버튼 옆의 둘째 행동, 본문 아래의 '더 보기'. arrow 를 주면 끝에 화살표가 붙습니다.",
+    code: `<TextLink as={Link} href="/about" arrow>회사소개 보기</TextLink>`,
+    render: () => (
+      <TextLink href="#n-link" arrow>
+        회사소개 보기
+      </TextLink>
+    ),
+  },
+  {
+    id: "n-actions",
+    group: "조작부",
+    name: "버튼 줄",
+    component: "Actions",
+    classes: ["n-actions"],
+    use: "버튼과 글자 링크를 나란히 놓는 줄. 버튼 하나와 링크 하나까지.",
+    code: `<Actions>\n  <Pill as={Link} href="/signup">얼리버드로 신청하기</Pill>\n  <TextLink as={Link} href="#check" arrow>2분 무료 진단</TextLink>\n</Actions>`,
+    render: () => (
+      <Actions>
+        <Pill href="#n-actions">얼리버드로 신청하기</Pill>
+        <TextLink href="#n-actions" arrow>
+          2분 무료 진단
+        </TextLink>
+      </Actions>
+    ),
+  },
+];

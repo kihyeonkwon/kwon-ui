@@ -1,0 +1,172 @@
+/*
+ * 뼈대. 읽는 글은 한 줄기로 흐른다: 왼쪽에 작은 라벨이나 제목, 오른쪽 한 칸에 본문.
+ * 규칙의 순서를 바꾸지 않는다(특이도가 같은 규칙은 뒤에 온 것이 이긴다).
+ */
+
+/* 내용 폭: 가운데 1064px */
+.night .n-wrap {
+  width: 100%;
+  max-width: var(--n-wrap);
+  margin-inline: auto;
+  padding-inline: var(--n-gutter);
+}
+
+/* 하위 페이지의 바깥과 머리. 위 여백은 떠 있는 메뉴 자리다 */
+.night.n-page {
+  padding-top: clamp(120px, 12vw, 164px);
+  min-height: 100vh;
+}
+.night .n-page-head {
+  padding-bottom: 72px;
+}
+@media (min-width: 1024px) {
+  .night .n-page-head {
+    padding-bottom: 96px;
+  }
+}
+
+/* 구간 */
+.night .n-sect {
+  position: relative;
+  padding: 96px 0 72px;
+}
+@media (min-width: 1024px) {
+  .night .n-sect {
+    padding: 128px 0 96px;
+  }
+}
+
+/* 가는 선 하나(위쪽) */
+.night .n-rule {
+  border-top: 1px solid var(--n-line);
+}
+
+/* 구간 머리: 넓은 화면에서 왼쪽 제목, 오른쪽 본문 */
+.night .n-head {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+@media (min-width: 1024px) {
+  .night .n-head {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 64px;
+  }
+  .night .n-head > :last-child {
+    max-width: 30em;
+    justify-self: end;
+  }
+}
+/* 제목만 있으면 한 줄 전체를 쓴다 */
+.night .n-head > :only-child {
+  justify-self: start;
+  max-width: none;
+  grid-column: 1 / -1;
+}
+/* 선으로 시작하는 구간 머리(<SectionHead rule>). 위 여백까지 한 이름으로 묶었다 */
+.night .n-head.ruled {
+  border-top: 1px solid var(--n-line);
+  padding-top: 48px;
+}
+@media (min-width: 768px) {
+  .night .n-head.ruled {
+    padding-top: 64px;
+  }
+}
+/* 페이지 머리 안에서는 아래 여백을 페이지 머리가 정한다 */
+.night .n-page-head > .n-head {
+  margin-bottom: 0;
+}
+
+/* 줄 목록: 왼쪽 200px 라벨, 오른쪽 본문 */
+.night .n-rows {
+  border-top: 1px solid var(--n-line);
+}
+.night .n-row {
+  display: grid;
+  gap: 8px 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--n-line);
+}
+@media (min-width: 768px) {
+  .night .n-row {
+    grid-template-columns: 200px 1fr;
+    padding: 28px 0;
+  }
+  .night .n-row.wide-label {
+    grid-template-columns: 280px 1fr;
+  }
+}
+.night .n-row > .n-row-label {
+  font-size: var(--n-fs-small);
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--n-mid);
+}
+.night .n-rows > .n-row:last-child {
+  border-bottom: 0;
+}
+
+/* 검은 판: 화면 양옆에서 한 칸 들어온 둥근 면 */
+.night .n-panel {
+  position: relative;
+  z-index: 1;
+  margin: 0 var(--n-gutter);
+  border-radius: var(--n-radius);
+  background: var(--n-panel);
+  padding: 88px 0 72px;
+}
+@media (min-width: 1024px) {
+  .night .n-panel {
+    padding: 120px 0 104px;
+  }
+}
+@media (max-width: 767px) {
+  .night .n-panel {
+    margin: 0 12px;
+    padding: 72px 0 56px;
+  }
+  .night .n-panel .n-wrap {
+    padding: 0 16px;
+  }
+}
+
+/* 그림과 영상의 틀 */
+.night .n-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--n-radius-md);
+  overflow: hidden;
+  background: var(--n-card);
+}
+.night .n-media.wide {
+  aspect-ratio: 16 / 9;
+}
+.night .n-media video,
+.night .n-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 문의 띠: 왼쪽 문장, 오른쪽 버튼 */
+.night .n-cta-band {
+  display: grid;
+  gap: 24px;
+  padding: 56px 0 8px;
+  border-top: 1px solid var(--n-line);
+}
+@media (min-width: 768px) {
+  .night .n-cta-band {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+.night .n-cta-band .n-title + .n-body {
+  margin-top: 16px;
+  max-width: 34em;
+}

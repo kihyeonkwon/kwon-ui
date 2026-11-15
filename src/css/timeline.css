@@ -1,0 +1,48 @@
+/*
+ * 연도별 이력. 왼쪽에 연도, 오른쪽에 그 해의 줄들. 많으면 앞의 몇 줄만 보이고 '외 N건'으로 접는다.
+ */
+.night .n-timeline {
+  border-top: 1px solid var(--n-line);
+}
+.night .n-tl-year {
+  display: grid;
+  gap: 12px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--n-line);
+}
+@media (min-width: 768px) {
+  .night .n-tl-year {
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+  }
+}
+.night .n-tl-year ul {
+  display: grid;
+  gap: 12px;
+}
+.night .n-tl-more summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s;
+}
+.night .n-tl-more summary::-webkit-details-marker {
+  display: none;
+}
+.night .n-tl-more summary:hover {
+  color: var(--n-hi);
+}
+.night .n-tl-more summary .chev {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+.night .n-tl-more summary:focus-visible {
+  outline: 2px solid var(--n-mid);
+  outline-offset: 4px;
+}
+.night .n-tl-more details[open] > summary {
+  display: none;
+}
