@@ -8,8 +8,8 @@ npm install kwon-ui --save-exact
 
 ## 들어 있는 것
 
-- **토큰과 CSS** (`kwon-ui/kwon-ui.css`): 색, 글자 크기 셋, 모서리, 폭. 글자(`n-title`, `n-body`, `n-small`), 뼈대(`n-sect`, `n-head`, `n-rows`, `n-panel`), 조작부(`n-pill`, `n-link`).
-- **컴포넌트** (`kwon-ui`): `Page`, `PageHead`, `Section`, `SectionHead`, `Rows`, `Row`, `Panel`, `Media`, `CtaBand`, `Pill`, `TextLink`, `Actions`, `Title`, `Body`, `Small` 등. 서버에서 그려지는 평범한 마크업입니다.
+- **토큰과 CSS** (`kwon-ui/kwon-ui.css`): 색, 글자 크기 셋, 모서리, 폭. 글자(`n-title`, `n-body`, `n-small`), 뼈대(`n-sect`, `n-head`, `n-rows`, `n-panel`, `n-photo`), 조작부(`n-pill`, `n-link`).
+- **컴포넌트** (`kwon-ui`): `Page`, `PageHead`, `Section`, `SectionHead`, `Rows`, `Row`, `Panel`, `Media`, `PhotoPanel`, `CtaBand`, `Pill`, `TextLink`, `Actions`, `Title`, `Body`, `Small` 등. 서버에서 그려지는 평범한 마크업입니다.
 - **목록** ([CATALOG.md](CATALOG.md)): 조각마다 언제 쓰는지와 사용 예. 화면을 만들기 전에 먼저 읽습니다.
 - **검사기** (`kwon-ui check`): 앱 코드에서 색·글자 값을 직접 쓴 곳, 시스템 조각을 다시 정의한 곳을 찾습니다. 이미 있는 위반은 기준선에 적어 두고 늘어날 때만 실패합니다.
 

@@ -25,6 +25,11 @@
   --n-ghost-hover: rgba(255, 255, 255, 0.16);
   --n-focus: rgba(255, 255, 255, 0.55);
 
+  /* 사진 위: 글 뒤를 누르는 그늘 두 단계, 사진 위에서 받쳐 주는 말의 색 */
+  --n-shade: rgba(0, 0, 0, 0.82);
+  --n-shade-soft: rgba(0, 0, 0, 0.1);
+  --n-on-photo: rgba(255, 255, 255, 0.62);
+
   /* 글자 크기. 읽는 글은 제목, 본문, 작은 글 셋이다. display 는 첫 화면 제목, control 은 버튼과 링크 */
   --n-fs-display: clamp(34px, 3.8vw, 50px);
   --n-fs-title: clamp(26px, 2.4vw, 32px);

@@ -40,17 +40,22 @@ export function PageHead({
   );
 }
 
-/** 구간. 안쪽은 내용 폭(1064px)으로 감싼다. bare 를 주면 감싸지 않는다(화면 끝까지 쓰는 내용). */
+/**
+ * 구간. 안쪽은 내용 폭(1064px)으로 감싼다. bare 를 주면 감싸지 않는다(화면 끝까지 쓰는 내용).
+ * rule 은 앞 구간과의 사이에 가는 선을 긋고, slim 은 문장 하나와 버튼 하나뿐인 짧은 구간의 여백을 준다.
+ */
 export function Section<T extends ElementType = "section">({
   as,
   bare,
+  rule,
+  slim,
   className,
   children,
   ...rest
-}: PolyProps<T, BoxProps & { bare?: boolean }>) {
+}: PolyProps<T, BoxProps & { bare?: boolean; rule?: boolean; slim?: boolean }>) {
   const Tag: ElementType = as ?? "section";
   return (
-    <Tag className={cx("n-sect", className)} {...rest}>
+    <Tag className={cx("n-sect", slim && "slim", rule && "ruled", className)} {...rest}>
       {bare ? children : <div className="n-wrap">{children}</div>}
     </Tag>
   );
@@ -122,6 +127,26 @@ export function Panel<T extends ElementType = "section">({ as, className, childr
 export function Media<T extends ElementType = "div">({ as, wide, className, ...rest }: PolyProps<T, BoxProps & { wide?: boolean }>) {
   const Tag: ElementType = as ?? "div";
   return <Tag className={cx("n-media", wide && "wide", className)} {...rest} />;
+}
+
+/**
+ * 사진 판. 어둡게 누른 사진 위 왼쪽 아래에 제목과 문단을 둔다. media 에 img 나 video(프레임워크의 이미지 컴포넌트)를 넘긴다.
+ * 한 페이지에 하나, 밝은 곳이 필요한 자리에 쓴다.
+ */
+export function PhotoPanel<T extends ElementType = "div">({
+  as,
+  media,
+  className,
+  children,
+  ...rest
+}: PolyProps<T, BoxProps & { media?: ReactNode }>) {
+  const Tag: ElementType = as ?? "div";
+  return (
+    <Tag className={cx("n-photo", className)} {...rest}>
+      {media}
+      <div className="n-photo-in">{children}</div>
+    </Tag>
+  );
 }
 
 /** 문의 띠: 왼쪽 한 줄 문장(과 짧은 문단), 오른쪽 버튼 줄. 페이지 끝에 하나 둔다. */

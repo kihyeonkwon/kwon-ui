@@ -25,6 +25,27 @@ export function tone(line: string, label?: string): ReactNode {
 }
 
 /**
+ * 본문 안의 진한 낱말. 글은 "**진한 낱말** 나머지" 꼴로 쓴다.
+ * ** 로 감싼 곳만 진한 글자(.hi)이고, 나머지는 본문 기본색 그대로다. n-body 나 n-small 안에서 쓴다.
+ */
+export function hi(line: string): ReactNode {
+  const parts = line.split(/(\*\*[^*]+\*\*)/).filter(Boolean);
+  return (
+    <>
+      {parts.map((p, i) =>
+        p.startsWith("**") && p.endsWith("**") ? (
+          <span key={i} className="hi">
+            {p.slice(2, -2)}
+          </span>
+        ) : (
+          <Fragment key={i}>{p}</Fragment>
+        ),
+      )}
+    </>
+  );
+}
+
+/**
  * 제목 글. ** 표시가 있으면 두 톤으로, 없으면 전부 진한 글자로 그린다.
  * (tone 은 표시가 없는 글을 전부 회색으로 그리므로, 표시 없는 제목은 이 함수를 거친다.)
  */

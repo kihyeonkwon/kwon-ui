@@ -8,6 +8,7 @@ import {
   Media,
   PageHead,
   Panel,
+  PhotoPanel,
   Pill,
   Row,
   Rows,
@@ -41,6 +42,13 @@ export type Entry = {
   /** 카탈로그 페이지에 그릴 예. 없으면 코드만 보인다 */
   render?: () => ReactNode;
 };
+
+/* 사진 판 예시에 쓰는 그림. 리포에 사진을 싣지 않으려고 밝은 면 하나를 그려 넣는다(카탈로그에서만 쓴다) */
+const SAMPLE_PHOTO =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9" preserveAspectRatio="none"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6e6e6"/><stop offset="1" stop-color="#5c5c5c"/></linearGradient></defs><rect width="16" height="9" fill="url(#g)"/></svg>`,
+  );
 
 export const GROUPS: { name: Entry["group"]; line: string; note: string }[] = [
   { name: "글자", line: "읽는 글자 크기는 **셋**입니다", note: "제목, 본문, 작은 글. 위계는 굵기 대신 진한 글자와 회색 두 톤으로 만듭니다." },
@@ -76,10 +84,17 @@ export const ENTRIES: Entry[] = [
     group: "글자",
     name: "본문",
     component: "Body",
-    classes: ["n-body"],
-    use: "읽는 문단. 한 구간에 한두 문단까지 둡니다.",
-    code: `<Body>현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다.</Body>`,
-    render: () => <Body>현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다. 만든 뒤에는 실제 사용 기록을 보고 고칩니다.</Body>,
+    classes: ["n-body", "hi"],
+    use: "읽는 문단. 한 구간에 한두 문단까지 둡니다. 목록에서 줄마다 먼저 읽혀야 하는 낱말(기관 이름)은 line 에 ** 로 감싸 진하게 둡니다. 작은 글 안에서도 같은 hi 를 씁니다.",
+    avoid: "문단마다 강조를 넣는 데 쓰지 않습니다. 굵기는 바꾸지 않고 색만 올립니다.",
+    code: `<Body>현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다.</Body>\n<Body as="li" line="**○○전자** 임원 AI 워크숍" />`,
+    render: () => (
+      <>
+        <Body>현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다. 만든 뒤에는 실제 사용 기록을 보고 고칩니다.</Body>
+        <Body line="**○○전자** 임원 AI 워크숍" />
+        <Body line="**○○대학교** 연구자를 위한 AI 특강" />
+      </>
+    ),
   },
   {
     id: "n-card-title",
@@ -135,10 +150,10 @@ export const ENTRIES: Entry[] = [
     group: "뼈대",
     name: "구간",
     component: "Section",
-    classes: ["n-sect", "n-wrap"],
-    use: "페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다.",
-    avoid: "여백을 구간마다 따로 정하지 않습니다.",
-    code: `<Section id="courses">\n  <SectionHead title="**직무별** 교육 과정" />\n  …\n</Section>`,
+    classes: ["n-sect", "n-wrap", "ruled", "slim"],
+    use: "페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다. rule 은 앞 구간과의 사이에 가는 선을 내용 폭만큼 긋습니다. slim 은 문장 하나와 버튼 하나뿐인 짧은 구간의 여백(넓은 화면 80px)입니다.",
+    avoid: "여백을 구간마다 따로 정하지 않습니다. 구간 머리에 선이 있으면(SectionHead 의 rule) 구간에는 긋지 않습니다.",
+    code: `<Section id="courses" rule>\n  <SectionHead title="**직무별** 교육 과정" />\n  …\n</Section>\n<Section id="team" slim rule>\n  …\n</Section>`,
   },
   {
     id: "n-head",
@@ -175,7 +190,7 @@ export const ENTRIES: Entry[] = [
     name: "줄 목록",
     component: "Rows, Row",
     classes: ["n-rows", "n-row", "n-row-label", "wide-label"],
-    use: "항목이 여럿일 때. 왼쪽 200px 에 작은 라벨, 오른쪽에 본문 한 칸.",
+    use: "항목이 여럿일 때. 왼쪽 200px 에 작은 라벨, 오른쪽에 본문 한 칸. 라벨과 본문은 첫 줄의 글자 밑선이 맞습니다.",
     avoid: "한 줄을 번호, 이름, 설명 세 칸으로 나누지 않습니다.",
     code: `<Rows as="ol">\n  <Row as="li" label="업무 파악">현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다.</Row>\n  <Row as="li" label="유연한 협업">필요한 만큼 만들고, 쓰면서 범위를 조정합니다.</Row>\n</Rows>`,
     render: () => (
@@ -218,6 +233,25 @@ export const ENTRIES: Entry[] = [
     use: "그림과 영상을 담는 틀. 기본 4:3, wide 는 16:9. 안의 img, video 가 틀을 채웁니다.",
     code: `<Media wide>\n  <video src="/lab.mp4" muted loop playsInline />\n</Media>`,
     render: () => <Media wide />,
+  },
+  {
+    id: "n-photo",
+    group: "뼈대",
+    name: "사진 판",
+    component: "PhotoPanel",
+    classes: ["n-photo", "n-photo-in"],
+    use: "어둡게 누른 사진 위 왼쪽 아래에 제목 한 줄과 문단 하나를 둡니다. 강의 현장처럼 사진이 내용인 구간에 씁니다. media 에 img 나 video 를 넘기면 판을 채웁니다.",
+    avoid: "한 페이지에 하나까지 둡니다. 글이 길면 사진 판에 넣지 않습니다.",
+    code: `<PhotoPanel media={<Image src="/hall.jpg" alt="강의 현장" fill sizes="100vw" />}>\n  <Title line="**강의 현장**에서 다듬은 과정입니다" label="강사" />\n  <Body>실습에 쓰는 자료와 순서는 수업을 거치며 고쳐 왔습니다.</Body>\n</PhotoPanel>`,
+    render: () => (
+      <PhotoPanel media={<img src={SAMPLE_PHOTO} alt="" loading="lazy" />}>
+        <Title as="p" line="**강의 현장**에서 다듬은 과정입니다" label="강사" />
+        <Body>실습에 쓰는 자료와 순서는 수업을 거치며 고쳐 왔습니다.</Body>
+        <Actions>
+          <Pill href="#n-photo">교육 문의하기</Pill>
+        </Actions>
+      </PhotoPanel>
+    ),
   },
   {
     id: "n-timeline",

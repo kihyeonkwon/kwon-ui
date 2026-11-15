@@ -53,6 +53,10 @@
   letter-spacing: 0;
   color: var(--n-mid);
 }
+/* 본문과 작은 글 안의 진한 낱말(기관 이름, 핵심 구절). 굵기는 그대로 두고 색만 올린다 */
+.night :is(.n-body, .n-small) .hi {
+  color: var(--n-hi);
+}
 /* 숫자가 세로로 줄이 맞아야 하는 곳(연도, 금액) */
 .night .n-num {
   font-variant-numeric: tabular-nums;

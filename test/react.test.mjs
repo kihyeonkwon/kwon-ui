@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { createElement as h } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { CtaBand, PageHead, Pill, Row, Rows, SectionHead, TextLink, Title, titleText, tone } from "../dist/react/index.js";
+import { Body, CtaBand, PageHead, PhotoPanel, Pill, Row, Rows, Section, SectionHead, TextLink, Title, hi, titleText, tone } from "../dist/react/index.js";
 
 const html = (node) => renderToStaticMarkup(node);
 const frag = (node) => renderToStaticMarkup(h("div", null, node)).slice(5, -6);
@@ -17,6 +17,27 @@ test("tone: ** 로 감싼 곳만 진하고 나머지는 회색", () => {
 test("titleText: 표시가 없는 제목은 전부 진한 글자", () => {
   assert.equal(frag(titleText("임원 AI 워크숍")), "임원 AI 워크숍");
   assert.equal(frag(titleText("**단체 수강** 안내")), '단체 수강<span class="lo-inline"> 안내</span>');
+});
+
+test("hi, Body 의 line: 본문 안에서 ** 로 감싼 낱말만 진하다", () => {
+  assert.equal(frag(hi("**○○전자** 임원 AI 워크숍")), '<span class="hi">○○전자</span> 임원 AI 워크숍');
+  assert.equal(frag(hi("표시가 없는 글")), "표시가 없는 글");
+  assert.equal(html(h(Body, { as: "li", line: "**○○전자** 임원 AI 워크숍" })), '<li class="n-body"><span class="hi">○○전자</span> 임원 AI 워크숍</li>');
+  assert.equal(html(h(Body, null, "그대로 둔 문단")), '<p class="n-body">그대로 둔 문단</p>');
+});
+
+test("Section: rule 은 선으로 시작하고 slim 은 짧은 구간이다", () => {
+  assert.equal(html(h(Section, { id: "courses" }, "가")), '<section class="n-sect" id="courses"><div class="n-wrap">가</div></section>');
+  assert.equal(html(h(Section, { rule: true }, "가")), '<section class="n-sect ruled"><div class="n-wrap">가</div></section>');
+  assert.equal(html(h(Section, { slim: true, rule: true, bare: true }, "가")), '<section class="n-sect slim ruled">가</section>');
+});
+
+test("PhotoPanel: 사진은 판의 바로 아래에, 글은 안쪽 상자에", () => {
+  assert.equal(
+    html(h(PhotoPanel, { media: h("img", { src: "/hall.jpg", alt: "강의 현장", loading: "lazy" }) }, h(Title, { line: "**현장**에서" }))),
+    '<div class="n-photo"><img src="/hall.jpg" alt="강의 현장" loading="lazy"/><div class="n-photo-in"><h2 class="n-title">현장<span class="lo-inline">에서</span></h2></div></div>',
+  );
+  assert.match(html(h(PhotoPanel, { as: "figure", id: "teacher" })), /^<figure class="n-photo" id="teacher"><div class="n-photo-in"><\/div><\/figure>$/);
 });
 
 test("Title, SectionHead", () => {
@@ -58,6 +79,8 @@ test("컴포넌트가 쓰는 클래스는 모두 CSS 에 있다", () => {
     html(h(SectionHead, { title: "**가** 나", label: "다", rule: true }, "라")),
     html(h(Rows, null, h(Row, { label: "가", wide: true }, "나"))),
     html(h(CtaBand, { title: "가", body: "나", actions: h(TextLink, { href: "#", arrow: true }, "다") })),
+    html(h(Section, { rule: true, slim: true }, h(Body, { line: "**가** 나" }))),
+    html(h(PhotoPanel, { media: h("img", { src: "#", alt: "", loading: "lazy" }) }, h(Title, { line: "**가** 나" }))),
   ].join("");
   for (const m of markup.matchAll(/class="([^"]+)"/g)) for (const c of m[1].split(" ")) assert.ok(known.has(c), `CSS 에 없는 클래스: ${c}`);
 });

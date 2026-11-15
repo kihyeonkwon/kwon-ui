@@ -1,6 +1,6 @@
 # kwon-ui 카탈로그
 
-버전 0.1.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
+버전 0.2.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
 
 화면을 만들기 전에 이 목록에서 고른다. 여기 없는 조각이 필요하면 페이지에서 새로 만들지 않고, kwon-ui 에 추가를 제안한다.
 
@@ -23,16 +23,17 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 |---|---|---|---|
 | 첫 화면 제목 | `<Display>` | `.n-display` | 첫 화면의 제목. 한 페이지에 한 번만 씁니다. |
 | 구간 제목 | `<Title>` | `.n-title` | 구간과 페이지의 제목. 한 문장 한 줄로 쓰고, ** 로 감싼 핵심 낱말 한두 개만 진하게 둡니다. |
-| 본문 | `<Body>` | `.n-body` | 읽는 문단. 한 구간에 한두 문단까지 둡니다. |
+| 본문 | `<Body>` | `.n-body` | 읽는 문단. 한 구간에 한두 문단까지 둡니다. 목록에서 줄마다 먼저 읽혀야 하는 낱말(기관 이름)은 line 에 ** 로 감싸 진하게 둡니다. 작은 글 안에서도 같은 hi 를 씁니다. |
 | 작은 제목 | `<CardTitle>` | `.n-card-title` | 목록 줄이나 카드 안의 제목. 본문과 같은 크기이고 진한 글자입니다. |
 | 작은 글 | `<Small>` | `.n-small` | 캡션, 기준, 라벨. 숫자 폭을 맞춰야 하면 num 을 줍니다. |
 | 페이지와 페이지 머리 | `<Page>` `<PageHead>` | `.n-page` | 하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다. |
-| 구간 | `<Section>` | `.n-sect` | 페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다. |
+| 구간 | `<Section>` | `.n-sect` | 페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다. rule 은 앞 구간과의 사이에 가는 선을 내용 폭만큼 긋습니다. slim 은 문장 하나와 버튼 하나뿐인 짧은 구간의 여백(넓은 화면 80px)입니다. |
 | 구간 머리 | `<SectionHead>` | `.n-head` | 구간의 시작. 왼쪽에 한 줄 제목, 오른쪽에 본문. rule 을 주면 가는 선 아래에서 시작합니다. |
 | 가는 선 | (클래스만) | `.n-rule` | 내용 위에 가는 선 하나를 긋습니다. 구간 머리의 선은 SectionHead 의 rule 로 긋습니다. |
-| 줄 목록 | `<Rows>` `<Row>` | `.n-rows` | 항목이 여럿일 때. 왼쪽 200px 에 작은 라벨, 오른쪽에 본문 한 칸. |
+| 줄 목록 | `<Rows>` `<Row>` | `.n-rows` | 항목이 여럿일 때. 왼쪽 200px 에 작은 라벨, 오른쪽에 본문 한 칸. 라벨과 본문은 첫 줄의 글자 밑선이 맞습니다. |
 | 검은 판 | `<Panel>` | `.n-panel` | 앞뒤 구간과 구분해야 하는 구간 하나(후기, 수강료처럼). 한 페이지에 두세 번까지. |
 | 그림 틀 | `<Media>` | `.n-media` | 그림과 영상을 담는 틀. 기본 4:3, wide 는 16:9. 안의 img, video 가 틀을 채웁니다. |
+| 사진 판 | `<PhotoPanel>` | `.n-photo` | 어둡게 누른 사진 위 왼쪽 아래에 제목 한 줄과 문단 하나를 둡니다. 강의 현장처럼 사진이 내용인 구간에 씁니다. media 에 img 나 video 를 넘기면 판을 채웁니다. |
 | 연도별 이력 | (클래스만) | `.n-timeline` | 해마다 쌓인 이력. 왼쪽에 연도, 오른쪽에 그 해의 줄들. 많으면 앞의 몇 줄만 보이고 '외 N건'으로 접습니다. |
 | 문의 띠 | `<CtaBand>` | `.n-cta-band` | 페이지 끝의 마지막 행동. 왼쪽에 한 줄 문장, 오른쪽에 버튼 줄. 한 페이지에 하나. |
 | 알약 버튼 | `<Pill>` | `.n-pill` | 한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때). |
@@ -65,12 +66,13 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 
 ### 본문
 
-`<Body>` · `.n-body`
+`<Body>` · `.n-body` `.hi`
 
-읽는 문단. 한 구간에 한두 문단까지 둡니다.
+읽는 문단. 한 구간에 한두 문단까지 둡니다. 목록에서 줄마다 먼저 읽혀야 하는 낱말(기관 이름)은 line 에 ** 로 감싸 진하게 둡니다. 작은 글 안에서도 같은 hi 를 씁니다. 문단마다 강조를 넣는 데 쓰지 않습니다. 굵기는 바꾸지 않고 색만 올립니다.
 
 ```tsx
 <Body>현재 업무와 자료를 함께 살펴보고 먼저 만들 것을 정합니다.</Body>
+<Body as="li" line="**○○전자** 임원 AI 워크숍" />
 ```
 
 ### 작은 제목
@@ -117,13 +119,16 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 
 ### 구간
 
-`<Section>` · `.n-sect` `.n-wrap`
+`<Section>` · `.n-sect` `.n-wrap` `.ruled` `.slim`
 
-페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다. 여백을 구간마다 따로 정하지 않습니다.
+페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다. rule 은 앞 구간과의 사이에 가는 선을 내용 폭만큼 긋습니다. slim 은 문장 하나와 버튼 하나뿐인 짧은 구간의 여백(넓은 화면 80px)입니다. 여백을 구간마다 따로 정하지 않습니다. 구간 머리에 선이 있으면(SectionHead 의 rule) 구간에는 긋지 않습니다.
 
 ```tsx
-<Section id="courses">
+<Section id="courses" rule>
   <SectionHead title="**직무별** 교육 과정" />
+  …
+</Section>
+<Section id="team" slim rule>
   …
 </Section>
 ```
@@ -154,7 +159,7 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 
 `<Rows>`, `<Row>` · `.n-rows` `.n-row` `.n-row-label` `.wide-label`
 
-항목이 여럿일 때. 왼쪽 200px 에 작은 라벨, 오른쪽에 본문 한 칸. 한 줄을 번호, 이름, 설명 세 칸으로 나누지 않습니다.
+항목이 여럿일 때. 왼쪽 200px 에 작은 라벨, 오른쪽에 본문 한 칸. 라벨과 본문은 첫 줄의 글자 밑선이 맞습니다. 한 줄을 번호, 이름, 설명 세 칸으로 나누지 않습니다.
 
 ```tsx
 <Rows as="ol">
@@ -186,6 +191,19 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 <Media wide>
   <video src="/lab.mp4" muted loop playsInline />
 </Media>
+```
+
+### 사진 판
+
+`<PhotoPanel>` · `.n-photo` `.n-photo-in`
+
+어둡게 누른 사진 위 왼쪽 아래에 제목 한 줄과 문단 하나를 둡니다. 강의 현장처럼 사진이 내용인 구간에 씁니다. media 에 img 나 video 를 넘기면 판을 채웁니다. 한 페이지에 하나까지 둡니다. 글이 길면 사진 판에 넣지 않습니다.
+
+```tsx
+<PhotoPanel media={<Image src="/hall.jpg" alt="강의 현장" fill sizes="100vw" />}>
+  <Title line="**강의 현장**에서 다듬은 과정입니다" label="강사" />
+  <Body>실습에 쓰는 자료와 순서는 수업을 거치며 고쳐 왔습니다.</Body>
+</PhotoPanel>
 ```
 
 ### 연도별 이력
@@ -287,6 +305,9 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 | `--n-ghost` | `rgba(255, 255, 255, 0.08)` |
 | `--n-ghost-hover` | `rgba(255, 255, 255, 0.16)` |
 | `--n-focus` | `rgba(255, 255, 255, 0.55)` |
+| `--n-shade` | `rgba(0, 0, 0, 0.82)` |
+| `--n-shade-soft` | `rgba(0, 0, 0, 0.1)` |
+| `--n-on-photo` | `rgba(255, 255, 255, 0.62)` |
 | `--n-fs-display` | `clamp(34px, 3.8vw, 50px)` |
 | `--n-fs-title` | `clamp(26px, 2.4vw, 32px)` |
 | `--n-fs-body` | `18px` |

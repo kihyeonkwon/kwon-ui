@@ -42,6 +42,8 @@
   align-items: center;
   gap: 8px;
   font-size: var(--n-fs-control);
+  /* 줄 높이를 물려받지 않고 정한다(앱마다 바탕 줄 높이가 달라 링크 높이가 달라졌다) */
+  line-height: 1.6;
   font-weight: 500;
   color: var(--n-hi);
   transition: opacity 0.2s;

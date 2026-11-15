@@ -1,5 +1,5 @@
 import type { ElementType, ReactNode } from "react";
-import { titleText } from "./tone.js";
+import { hi, titleText } from "./tone.js";
 import { cx, type PolyProps } from "./util.js";
 
 type LineProps = {
@@ -33,10 +33,14 @@ export function Title<T extends ElementType = "h2">({ as, line, label, className
 
 type TextProps = { className?: string; children?: ReactNode };
 
-/** 본문. */
-export function Body<T extends ElementType = "p">({ as, className, ...rest }: PolyProps<T, TextProps>) {
+/** 본문. line 을 주면 "**진한 낱말** 나머지" 꼴에서 ** 로 감싼 곳만 진하게 그린다. */
+export function Body<T extends ElementType = "p">({ as, line, className, children, ...rest }: PolyProps<T, TextProps & { line?: string }>) {
   const Tag: ElementType = as ?? "p";
-  return <Tag className={cx("n-body", className)} {...rest} />;
+  return (
+    <Tag className={cx("n-body", className)} {...rest}>
+      {children ?? (line ? hi(line) : null)}
+    </Tag>
+  );
 }
 
 /** 목록이나 카드 안의 작은 제목. 본문과 같은 크기이고 진한 글자다. */
