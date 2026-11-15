@@ -2,7 +2,9 @@
 
 권앤컴퍼니의 세 제품(kwonandcompany.com, 스킬캠퍼스, Projects)이 같이 쓰는 디자인 시스템입니다. 화면의 값과 조각을 한 곳에 두고, 앱은 발행된 버전을 받아 씁니다.
 
-상태: 0.1.0, npm 발행 전.
+```bash
+npm install kwon-ui --save-exact
+```
 
 ## 들어 있는 것
 
