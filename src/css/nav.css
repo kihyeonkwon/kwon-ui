@@ -67,13 +67,13 @@
 .night .n-nav-link:hover {
   opacity: 0.72;
 }
-/* 메뉴의 버튼 하나: 흰 면, 높이 40, 모서리 8px. 본문의 알약 버튼(.n-pill)보다 작고 덜 둥글다 */
+/* 메뉴의 버튼 하나: 흰 면, 높이 40, 알약 모서리. 본문의 알약 버튼(.n-pill)보다 작다 */
 .night .n-nav-cta {
   display: inline-flex;
   align-items: center;
   height: 40px;
   padding: 0 16px;
-  border-radius: var(--n-radius-xs);
+  border-radius: var(--n-radius-pill);
   background: var(--n-btn);
   color: var(--n-btn-ink);
   font-size: var(--n-fs-control);
@@ -172,10 +172,14 @@
   background: var(--n-menu-hover);
   color: var(--n-hi);
 }
+/* 메뉴판의 버튼은 폭 가득, 글자는 가운데. 위의 링크 규칙(.n-nav-sheet a)이 이겨서 들어오던
+   안쪽 여백 12px(글자가 아래로 밀렸다)과 모서리 8px 를 여기서 다시 정한다 */
 .night .n-nav-sheet .n-nav-cta {
-  display: block;
+  display: flex;
+  justify-content: center;
   margin-top: 8px;
-  text-align: center;
+  padding: 0 16px;
+  border-radius: var(--n-radius-pill);
   color: var(--n-btn-ink);
 }
 .night .n-nav-sheet .n-nav-cta:hover {
