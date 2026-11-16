@@ -447,5 +447,88 @@ export const ENTRIES: Entry[] = [
         </div>
       </>
     ),
+  },  {
+    id: "n-nav",
+    group: "조작부",
+    name: "머리 메뉴",
+    classes: ["n-nav", "n-nav-bar", "n-nav-left", "n-nav-links", "n-nav-link", "n-nav-right", "n-nav-cta", "n-brand", "n-nav-pill", "n-nav-menu", "n-nav-sheet"],
+    use: "화면 위에 떠 있는 머리 메뉴. 넓은 화면의 맨 위에서는 넓은 줄(왼쪽에 로고와 링크, 오른쪽에 글자 링크와 버튼 하나)이고, 조금 내리면 가운데 위의 작은 알약으로 바뀝니다(앱이 data-compact=\"true\" 를 붙입니다). 1023px 이하는 처음부터 알약입니다. 알약의 메뉴 단추로 메뉴판을 엽니다. 내린 정도와 여닫기, 로고의 글꼴과 크기는 앱이 정합니다.",
+    avoid: "메뉴에 흰 버튼을 둘 두지 않습니다(로그인은 글자 링크). 메뉴는 문서 흐름에서 자리를 차지하지 않으므로 첫 구간의 위 여백을 앱에서 둡니다.",
+    code: `<div className="n-nav" data-compact={scrolled}>
+  <div className="n-nav-bar" aria-hidden={scrolled}>
+    <div className="n-nav-left">
+      <Link href="/" className="n-brand">{logo}</Link>
+      <nav className="n-nav-links">
+        <Link href="/courses" className="n-nav-link">교육 과정</Link>
+        <Link href="/cases" className="n-nav-link">교육 사례</Link>
+      </nav>
+    </div>
+    <div className="n-nav-right">
+      <Link href="/contact" className="n-nav-link">문의</Link>
+      <Link href="/quote" className="n-nav-cta">맞춤 커리큘럼</Link>
+    </div>
+  </div>
+  <div className="n-nav-pill">
+    <Link href="/" className="n-brand">{logo}</Link>
+    <button type="button" className="n-nav-menu" aria-expanded={open} aria-label="메뉴 열기" onClick={toggle}>{icon}</button>
+  </div>
+  {open && (
+    <nav className="n-nav-sheet">
+      <Link href="/courses">교육 과정</Link>
+      <Link href="/cases">교육 사례</Link>
+      <Link href="/quote" className="n-nav-cta">맞춤 커리큘럼</Link>
+    </nav>
+  )}
+</div>`,
+    render: () => (
+      <div className="n-nav" data-compact="true">
+        <div className="n-nav-pill">
+          <a href="#n-nav" className="n-brand">
+            kwon-ui
+          </a>
+          <button type="button" className="n-nav-menu" aria-expanded="true" aria-label="메뉴 닫기">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M5 5l10 10M15 5L5 15" />
+            </svg>
+          </button>
+        </div>
+        <nav className="n-nav-sheet" aria-label="메뉴 예시">
+          <a href="#n-nav">교육 과정</a>
+          <a href="#n-nav">교육 사례</a>
+          <a href="#n-nav">문의</a>
+          <a href="#n-nav" className="n-nav-cta">
+            맞춤 커리큘럼
+          </a>
+        </nav>
+      </div>
+    ),
+  },
+  {
+    id: "n-tabs",
+    group: "조작부",
+    name: "탭",
+    classes: ["n-tabs", "n-tab"],
+    use: "같은 자리에서 내용을 바꾸는 탭(버튼에 role=\"tab\", 고른 탭은 aria-selected=\"true\"), 또는 쪽 안의 구간으로 건너뛰는 링크 묶음(a.n-tab). 휴대폰에서는 한 줄로 두고 옆으로 밉니다.",
+    avoid: "탭마다 숫자 배지나 설명 글을 붙이지 않습니다(배지는 한 화면에 하나까지).",
+    code: `<div role="tablist" className="n-tabs">
+  <button type="button" role="tab" aria-selected={tab === "all"} className="n-tab" onClick={() => setTab("all")}>전체</button>
+  <button type="button" role="tab" aria-selected={tab === "hr"} className="n-tab" onClick={() => setTab("hr")}>인사</button>
+</div>`,
+    render: () => (
+      <div role="tablist" aria-label="탭 예시" className="n-tabs">
+        <button type="button" role="tab" aria-selected="true" className="n-tab">
+          전체
+        </button>
+        <button type="button" role="tab" aria-selected="false" className="n-tab">
+          기획
+        </button>
+        <button type="button" role="tab" aria-selected="false" className="n-tab">
+          인사
+        </button>
+        <button type="button" role="tab" aria-selected="false" className="n-tab">
+          데이터
+        </button>
+      </div>
+    ),
   },
 ];

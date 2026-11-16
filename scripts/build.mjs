@@ -12,7 +12,7 @@ const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const read = (p) => readFileSync(join(root, p), "utf8");
 
 // 합치는 순서가 곧 우선순위다(특이도가 같으면 뒤에 온 규칙이 이긴다). 바꾸지 않는다.
-const CSS_FILES = ["tokens.css", "base.css", "type.css", "layout.css", "controls.css", "timeline.css", "content.css", "form.css"];
+const CSS_FILES = ["tokens.css", "base.css", "type.css", "layout.css", "controls.css", "timeline.css", "content.css", "form.css", "nav.css"];
 
 rmSync(join(root, "dist"), { recursive: true, force: true });
 rmSync(join(root, "site"), { recursive: true, force: true });
@@ -143,6 +143,7 @@ body { margin: 0; }
 h1, h2, h3, p, ul, ol, figure, pre { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 .cat-group { padding-bottom: 96px; }
 .cat-entry { display: grid; gap: 16px 24px; padding: 40px 0; border-bottom: 1px solid var(--n-line); scroll-margin-top: 24px; }
 .cat-entry:last-child { border-bottom: 0; }
@@ -155,6 +156,9 @@ a { color: inherit; text-decoration: none; }
 .cat-stage .n-head { margin-bottom: 0; }
 .cat-stage .n-cta-band { padding: 32px 0 0; }
 .cat-stage .n-media { max-width: 360px; }
+/* 머리 메뉴는 화면에 떠 있는 조각이라, 카탈로그에서는 판 안에 붙여 펼친 모양을 보인다 */
+.cat-stage .n-nav { position: relative; z-index: 0; height: 320px; overflow: hidden; }
+.cat-stage .n-nav-pill, .cat-stage .n-nav-sheet { width: min(100%, 330px); min-width: 0; }
 .cat-code { overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.6; color: var(--n-mid); }
 .cat-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .cat-swatch { display: inline-block; width: 14px; height: 14px; margin-right: 10px; border: 1px solid var(--n-line); border-radius: 4px; vertical-align: -2px; }

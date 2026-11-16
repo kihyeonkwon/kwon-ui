@@ -9,7 +9,7 @@ kwon-ui
 
 구조
 
-- `src/css/`: 토큰과 CSS. `tokens.css`(값), `base.css`, `type.css`, `layout.css`, `controls.css`, `timeline.css`. 합치는 순서는 `scripts/build.mjs`의 `CSS_FILES`.
+- `src/css/`: 토큰과 CSS. `tokens.css`(값), `base.css`, `type.css`, `layout.css`, `controls.css`, `timeline.css`, `content.css`(긴 글, 표), `form.css`(입력 칸), `nav.css`(머리 메뉴, 탭). 합치는 순서는 `scripts/build.mjs`의 `CSS_FILES`.
 - `src/react/`: 컴포넌트. CSS 클래스를 쓰는 얇은 마크업이다.
 - `src/catalog/manifest.tsx`: 카탈로그의 원본. `CATALOG.md`와 `site/index.html`이 여기서 만들어진다.
 - `check/`, `bin/`: 검사기와 명령(`kwon-ui check`).

@@ -1,0 +1,257 @@
+/*
+ * 메뉴와 탭. 값은 kwonandcompany.com 의 머리 메뉴(검은 하위 페이지의 톤)와 분야 탭에서 그대로 옮겼다.
+ */
+
+/* 머리 메뉴: 화면 위에 떠 있고 문서 흐름에서 자리를 차지하지 않는다. 첫 구간의 위 여백은 앱이 둔다.
+   넓은 화면의 맨 위에서는 넓은 줄(.n-nav-bar)이다. 조금 내리면 앱이 data-compact="true" 를 붙이고,
+   넓은 줄이 사라지며 가운데 위에 작은 알약(.n-nav-pill)이 뜬다. 휴대폰과 태블릿(1023px 이하)은 처음부터 알약이다.
+   알약의 메뉴 단추(.n-nav-menu)를 누르면 아래로 메뉴판(.n-nav-sheet)이 펼쳐진다. 여닫기와 내린 정도는 앱이 정한다 */
+.night .n-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+.night .n-nav * {
+  pointer-events: auto;
+}
+/* 넓은 줄: 위 여백은 화면 폭에 비례하고(--n-nav-top), 줄 높이는 42px. 옆 여백은 첫 화면 글과 같은 값 */
+.night .n-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(var(--n-nav-top) + 42px);
+  padding: var(--n-nav-top) var(--n-edge) 0;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+.night .n-nav-left,
+.night .n-nav-right,
+.night .n-nav-links {
+  display: flex;
+  align-items: center;
+}
+.night .n-nav-left {
+  gap: 36px;
+}
+.night .n-nav-links {
+  gap: 28px;
+}
+.night .n-nav-right {
+  gap: 24px;
+}
+/* 로고 자리: 표지와 이름을 나란히 둔다. 이름의 글꼴과 크기는 제품마다 달라 앱이 정한다 */
+.night .n-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--n-hi);
+  transition: opacity 0.2s;
+}
+.night .n-brand:hover {
+  opacity: 0.8;
+}
+/* 넓은 줄의 글자 링크 */
+.night .n-nav-link {
+  font-size: var(--n-fs-control);
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--n-hi);
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.night .n-nav-link:hover {
+  opacity: 0.72;
+}
+/* 메뉴의 버튼 하나: 흰 면, 높이 40, 모서리 8px. 본문의 알약 버튼(.n-pill)보다 작고 덜 둥글다 */
+.night .n-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--n-radius-xs);
+  background: var(--n-btn);
+  color: var(--n-btn-ink);
+  font-size: var(--n-fs-control);
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+.night .n-nav-cta:hover {
+  background: var(--n-btn-hover);
+}
+.night .n-nav-cta:focus-visible {
+  outline: 2px solid var(--n-focus);
+  outline-offset: 3px;
+}
+/* 작은 알약: 반투명 짙은 회색 유리, 테두리 없음. 폭은 내용에 맞추되 300px 보다 좁아지지 않는다 */
+.night .n-nav-pill {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: max-content;
+  min-width: 300px;
+  max-width: calc(100vw - 24px);
+  height: 52px;
+  padding: 0 8px 0 16px;
+  border-radius: var(--n-radius-menu);
+  background: var(--n-nav-glass);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  border: 1px solid transparent;
+  color: var(--n-hi);
+  transform: translate(-50%, -8px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s,
+    transform 0.3s,
+    visibility 0.3s;
+}
+/* 메뉴 단추: 36px 정사각, 올리면 옅은 면이 깔린다. 안의 아이콘은 앱이 넣는다 */
+.night .n-nav-menu {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--n-radius-xs);
+  color: var(--n-hi);
+}
+.night .n-nav-menu:hover {
+  background: var(--n-icon-hover);
+}
+/* 넓은 화면에서 내렸을 때: 넓은 줄이 위로 사라지고 알약이 뜬다 */
+.night .n-nav[data-compact="true"] .n-nav-bar {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+.night .n-nav[data-compact="true"] .n-nav-bar * {
+  pointer-events: none;
+}
+.night .n-nav[data-compact="true"] .n-nav-pill {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+/* 메뉴판: 알약 바로 아래로 펼친다. 링크 한 줄씩, 맨 아래에 버튼(.n-nav-cta) 하나 */
+.night .n-nav-sheet {
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  width: min(calc(100vw - 24px), 330px);
+  transform: translateX(-50%);
+  padding: 8px;
+  border-radius: var(--n-radius-menu);
+  background: var(--n-nav-glass);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  backdrop-filter: blur(22px) saturate(1.5);
+  border: 1px solid transparent;
+}
+.night .n-nav-sheet a {
+  display: block;
+  padding: 12px;
+  border-radius: var(--n-radius-xs);
+  font-size: var(--n-fs-menu);
+  /* 줄 높이와 글자 사이를 물려받지 않고 정한다(앱마다 바탕 값이 달라 줄 높이가 달라진다) */
+  line-height: 1.6;
+  letter-spacing: 0;
+  color: var(--n-soft);
+}
+.night .n-nav-sheet a:hover {
+  background: var(--n-menu-hover);
+  color: var(--n-hi);
+}
+.night .n-nav-sheet .n-nav-cta {
+  display: block;
+  margin-top: 8px;
+  text-align: center;
+  color: var(--n-btn-ink);
+}
+.night .n-nav-sheet .n-nav-cta:hover {
+  background: var(--n-btn-hover);
+  color: var(--n-btn-ink);
+}
+/* 좁은 화면: 넓은 줄은 숨기고 처음부터 알약(화면 폭 가득) */
+@media (max-width: 1023px) {
+  .night .n-nav-bar {
+    display: none;
+  }
+  .night .n-nav-pill,
+  .night .n-nav-sheet {
+    width: calc(100vw - 24px);
+  }
+  .night .n-nav-pill {
+    top: 12px;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+  .night .n-nav-sheet {
+    top: 72px;
+  }
+}
+
+/* 탭: 알약 묶음. 버튼이면 고른 탭에 aria-selected="true" 를 붙인다(묶음은 role="tablist", 탭은 role="tab").
+   쪽 안의 구간으로 건너뛰는 링크 묶음으로도 쓴다(a.n-tab) */
+.night .n-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--n-radius-pill);
+  background: var(--n-tabs);
+  border: 1px solid var(--n-line);
+}
+.night .n-tab {
+  padding: 12px 20px;
+  border-radius: var(--n-radius-pill);
+  font-size: var(--n-fs-control);
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--n-mid);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.night .n-tab[aria-selected="true"] {
+  background: var(--n-tab-on);
+  color: var(--n-hi);
+}
+.night .n-tab:hover {
+  color: var(--n-hi);
+}
+.night a.n-tab {
+  display: inline-block;
+}
+/* 휴대폰: 탭은 한 줄로 두고 옆으로 민다 */
+@media (max-width: 767px) {
+  .night .n-tabs {
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+  .night .n-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .night .n-tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 12px 16px;
+    font-size: var(--n-fs-small);
+  }
+}

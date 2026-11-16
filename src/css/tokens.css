@@ -25,6 +25,13 @@
   --n-ghost-hover: rgba(255, 255, 255, 0.16);
   --n-focus: rgba(255, 255, 255, 0.55);
 
+  /* 메뉴와 탭: 떠 있는 알약과 메뉴판의 유리, 메뉴판 줄에 올렸을 때, 메뉴 단추에 올렸을 때, 탭 묶음의 면, 고른 탭 */
+  --n-nav-glass: rgba(30, 30, 36, 0.55);
+  --n-menu-hover: rgba(255, 255, 255, 0.06);
+  --n-icon-hover: rgba(255, 255, 255, 0.1);
+  --n-tabs: rgba(255, 255, 255, 0.05);
+  --n-tab-on: rgba(255, 255, 255, 0.12);
+
   /* 사진 위: 글 뒤를 누르는 그늘 두 단계, 사진 위에서 받쳐 주는 말의 색 */
   --n-shade: rgba(0, 0, 0, 0.82);
   --n-shade-soft: rgba(0, 0, 0, 0.1);
@@ -44,17 +51,23 @@
   --n-fs-control: 15px;
   /* 입력 칸 안의 글. 휴대폰 브라우저는 16px 보다 작은 입력 칸을 누르면 화면을 키운다 */
   --n-fs-input: 16px;
+  /* 펼친 메뉴판의 링크 */
+  --n-fs-menu: 16px;
 
-  /* 모서리: 판, 그림, 입력 칸, 알약 */
+  /* 모서리: 판, 그림, 입력 칸, 알약. menu 는 떠 있는 메뉴(알약과 메뉴판), xs 는 메뉴 버튼과 메뉴판의 줄 */
   --n-radius: 32px;
   --n-radius-md: 20px;
   --n-radius-sm: 12px;
   --n-radius-pill: 999px;
+  --n-radius-menu: 14px;
+  --n-radius-xs: 8px;
 
   /* 폭과 바깥 여백 */
   --n-wrap: 1064px;
   --n-gutter: 24px;
   --n-edge: clamp(20px, 3.2vw, 48px);
+  /* 머리 메뉴의 넓은 줄 위 여백. 옆 여백(--n-edge)처럼 화면 폭에 비례한다 */
+  --n-nav-top: clamp(16px, 3.2vw, 44px);
 
   /* 글꼴 이름. 글꼴 파일은 앱이 불러온다(패키지는 글꼴을 싣지 않는다) */
   --n-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto,
