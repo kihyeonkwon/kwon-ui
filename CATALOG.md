@@ -1,6 +1,6 @@
 # kwon-ui 카탈로그
 
-버전 0.2.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
+버전 0.3.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
 
 화면을 만들기 전에 이 목록에서 고른다. 여기 없는 조각이 필요하면 페이지에서 새로 만들지 않고, kwon-ui 에 추가를 제안한다.
 
@@ -26,6 +26,7 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 | 본문 | `<Body>` | `.n-body` | 읽는 문단. 한 구간에 한두 문단까지 둡니다. 목록에서 줄마다 먼저 읽혀야 하는 낱말(기관 이름)은 line 에 ** 로 감싸 진하게 둡니다. 작은 글 안에서도 같은 hi 를 씁니다. |
 | 작은 제목 | `<CardTitle>` | `.n-card-title` | 목록 줄이나 카드 안의 제목. 본문과 같은 크기이고 진한 글자입니다. |
 | 작은 글 | `<Small>` | `.n-small` | 캡션, 기준, 라벨. 숫자 폭을 맞춰야 하면 num 을 줍니다. |
+| 긴 글 | (클래스만) | `.n-prose` | 문단, 목록, 링크, 진한 낱말이 섞인 긴 글(소개 문단, 약관과 정책). 한 줄은 720px 까지이고, 문단 사이는 글자 한 줄 높이만큼 띄웁니다. |
 | 페이지와 페이지 머리 | `<Page>` `<PageHead>` | `.n-page` | 하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다. |
 | 구간 | `<Section>` | `.n-sect` | 페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다. rule 은 앞 구간과의 사이에 가는 선을 내용 폭만큼 긋습니다. slim 은 문장 하나와 버튼 하나뿐인 짧은 구간의 여백(넓은 화면 80px)입니다. |
 | 구간 머리 | `<SectionHead>` | `.n-head` | 구간의 시작. 왼쪽에 한 줄 제목, 오른쪽에 본문. rule 을 주면 가는 선 아래에서 시작합니다. |
@@ -34,11 +35,13 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 | 검은 판 | `<Panel>` | `.n-panel` | 앞뒤 구간과 구분해야 하는 구간 하나(후기, 수강료처럼). 한 페이지에 두세 번까지. |
 | 그림 틀 | `<Media>` | `.n-media` | 그림과 영상을 담는 틀. 기본 4:3, wide 는 16:9. 안의 img, video 가 틀을 채웁니다. |
 | 사진 판 | `<PhotoPanel>` | `.n-photo` | 어둡게 누른 사진 위 왼쪽 아래에 제목 한 줄과 문단 하나를 둡니다. 강의 현장처럼 사진이 내용인 구간에 씁니다. media 에 img 나 video 를 넘기면 판을 채웁니다. |
+| 표 | (클래스만) | `.n-table` | 칸이 둘 이상인 자료(시간표, 수집 항목과 보유 기간). 가는 가로선만 긋고 머리글은 작은 회색입니다. 줄의 이름 칸은 hi, 곁들이는 칸은 sm. 좁은 화면에서 넘치면 n-table-wrap 만 옆으로 밉니다. |
 | 연도별 이력 | (클래스만) | `.n-timeline` | 해마다 쌓인 이력. 왼쪽에 연도, 오른쪽에 그 해의 줄들. 많으면 앞의 몇 줄만 보이고 '외 N건'으로 접습니다. |
 | 문의 띠 | `<CtaBand>` | `.n-cta-band` | 페이지 끝의 마지막 행동. 왼쪽에 한 줄 문장, 오른쪽에 버튼 줄. 한 페이지에 하나. |
 | 알약 버튼 | `<Pill>` | `.n-pill` | 한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때). |
 | 글자 링크 | `<TextLink>` | `.n-link` | 버튼 옆의 둘째 행동, 본문 아래의 '더 보기'. arrow 를 주면 끝에 화살표가 붙습니다. |
 | 버튼 줄 | `<Actions>` | `.n-actions` | 버튼과 글자 링크를 나란히 놓는 줄. 버튼 하나와 링크 하나까지. |
+| 입력 칸 | (클래스만) | `.n-field` | 글을 넣는 칸(input, textarea, select)과 그 위의 칸 이름. 칸 높이 52px, 칸 안의 글자는 16px(휴대폰이 화면을 키우지 않게). |
 
 ## 글자
 
@@ -94,6 +97,23 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 ```tsx
 <Small>홈페이지로 접수된 문의 기준입니다.</Small>
 <Small num>2022 ~ 2026</Small>
+```
+
+### 긴 글
+
+`.n-prose`
+
+문단, 목록, 링크, 진한 낱말이 섞인 긴 글(소개 문단, 약관과 정책). 한 줄은 720px 까지이고, 문단 사이는 글자 한 줄 높이만큼 띄웁니다. 짧은 문단 하나는 Body 로 씁니다. 긴 글 안에 제목 크기를 따로 두지 않습니다(제목은 바깥에 CardTitle 로).
+
+```tsx
+<div className="n-prose">
+  <p>회사는 서비스 운영에 필요한 범위에서 아래 업체에 처리를 맡깁니다.</p>
+  <ul>
+    <li>결제 처리</li>
+    <li>데이터베이스 운영</li>
+  </ul>
+  <p><strong>카드 번호는 저장하지 않습니다.</strong> 자세한 내용은 <a href="#">개인정보처리방침</a>에 있습니다.</p>
+</div>
 ```
 
 ## 뼈대
@@ -206,6 +226,23 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 </PhotoPanel>
 ```
 
+### 표
+
+`.n-table` `.n-table-wrap` `.hi` `.sm`
+
+칸이 둘 이상인 자료(시간표, 수집 항목과 보유 기간). 가는 가로선만 긋고 머리글은 작은 회색입니다. 줄의 이름 칸은 hi, 곁들이는 칸은 sm. 좁은 화면에서 넘치면 n-table-wrap 만 옆으로 밉니다. 칸이 하나면 줄 목록(Rows)을 씁니다. 표를 상자나 면으로 감싸지 않습니다.
+
+```tsx
+<div className="n-table-wrap">
+  <table className="n-table">
+    <thead><tr><th>구분</th><th>수집 항목</th><th>보유 기간</th></tr></thead>
+    <tbody>
+      <tr><td className="hi">회원가입</td><td>이메일 주소, 비밀번호</td><td className="sm">회원 탈퇴 시까지</td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
 ### 연도별 이력
 
 `.n-timeline` `.n-tl-year` `.n-tl-more` `.chev`
@@ -284,6 +321,23 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 </Actions>
 ```
 
+### 입력 칸
+
+`.n-field` `.n-label`
+
+글을 넣는 칸(input, textarea, select)과 그 위의 칸 이름. 칸 높이 52px, 칸 안의 글자는 16px(휴대폰이 화면을 키우지 않게). 칸 이름을 칸 안의 안내 글(placeholder)로 대신하지 않습니다.
+
+```tsx
+<div>
+  <label className="n-label" htmlFor="email">이메일</label>
+  <input id="email" type="email" className="n-field" />
+</div>
+<div>
+  <label className="n-label" htmlFor="memo">요청 사항</label>
+  <textarea id="memo" className="n-field" />
+</div>
+```
+
 ## 토큰
 
 값은 `src/css/tokens.css` 에만 있다. `.night` 안에서 쓴다.
@@ -308,13 +362,19 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 | `--n-shade` | `rgba(0, 0, 0, 0.82)` |
 | `--n-shade-soft` | `rgba(0, 0, 0, 0.1)` |
 | `--n-on-photo` | `rgba(255, 255, 255, 0.62)` |
+| `--n-field` | `rgba(255, 255, 255, 0.05)` |
+| `--n-field-focus` | `rgba(255, 255, 255, 0.4)` |
+| `--n-field-option` | `#141414` |
+| `--n-underline` | `rgba(255, 255, 255, 0.35)` |
 | `--n-fs-display` | `clamp(34px, 3.8vw, 50px)` |
 | `--n-fs-title` | `clamp(26px, 2.4vw, 32px)` |
 | `--n-fs-body` | `18px` |
 | `--n-fs-small` | `14px` |
 | `--n-fs-control` | `15px` |
+| `--n-fs-input` | `16px` |
 | `--n-radius` | `32px` |
 | `--n-radius-md` | `20px` |
+| `--n-radius-sm` | `12px` |
 | `--n-radius-pill` | `999px` |
 | `--n-wrap` | `1064px` |
 | `--n-gutter` | `24px` |

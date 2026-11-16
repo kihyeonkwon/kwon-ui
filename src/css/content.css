@@ -1,0 +1,72 @@
+/*
+ * 긴 글과 표. 읽는 글자는 본문(18px)과 작은 글(14px) 둘이다.
+ * 값은 kwonandcompany.com 의 밤 테마(night.css 의 .n-prose, .n-table)에서 그대로 옮겼다.
+ */
+
+/* 긴 글: 문단, 목록, 링크, 진한 낱말이 섞인 글(소개 문단, 약관과 정책). 한 줄 길이는 720px 까지 */
+.night .n-prose {
+  max-width: 720px;
+  font-size: var(--n-fs-body);
+  line-height: 1.6;
+  color: var(--n-soft);
+}
+.night .n-prose > * + * {
+  margin-top: 1em;
+}
+.night .n-prose :is(ul, ol) {
+  padding-left: 1.2em;
+}
+.night .n-prose ul {
+  list-style: disc;
+}
+.night .n-prose ol {
+  list-style: decimal;
+}
+.night .n-prose li + li {
+  margin-top: 0.4em;
+}
+.night .n-prose a {
+  color: var(--n-hi);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--n-underline);
+}
+.night .n-prose strong {
+  color: var(--n-hi);
+  font-weight: 500;
+}
+
+/* 표: 가는 가로선만, 머리글은 작은 회색. 칸 글자는 작은 글 크기. 좁은 화면에서 넘치면 감싼 상자(n-table-wrap)만 옆으로 민다 */
+.night .n-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.night .n-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.night .n-table th {
+  text-align: left;
+  font-size: var(--n-fs-small);
+  font-weight: 400;
+  color: var(--n-mid);
+  padding: 0 20px 12px 0;
+  border-bottom: 1px solid var(--n-line);
+  white-space: nowrap;
+}
+.night .n-table td {
+  padding: 16px 20px 16px 0;
+  border-bottom: 1px solid var(--n-line);
+  font-size: var(--n-fs-small);
+  line-height: 1.6;
+  color: var(--n-soft);
+  vertical-align: top;
+}
+/* 줄의 이름 칸(진한 글자)과 곁들이는 칸(회색) */
+.night .n-table td.hi {
+  color: var(--n-hi);
+}
+.night .n-table td.sm {
+  font-size: var(--n-fs-small);
+  color: var(--n-mid);
+}

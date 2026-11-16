@@ -12,7 +12,7 @@ const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const read = (p) => readFileSync(join(root, p), "utf8");
 
 // 합치는 순서가 곧 우선순위다(특이도가 같으면 뒤에 온 규칙이 이긴다). 바꾸지 않는다.
-const CSS_FILES = ["tokens.css", "base.css", "type.css", "layout.css", "controls.css", "timeline.css"];
+const CSS_FILES = ["tokens.css", "base.css", "type.css", "layout.css", "controls.css", "timeline.css", "content.css", "form.css"];
 
 rmSync(join(root, "dist"), { recursive: true, force: true });
 rmSync(join(root, "site"), { recursive: true, force: true });

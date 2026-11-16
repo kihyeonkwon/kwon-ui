@@ -123,6 +123,27 @@ export const ENTRIES: Entry[] = [
     ),
   },
   {
+    id: "n-prose",
+    group: "글자",
+    name: "긴 글",
+    classes: ["n-prose"],
+    use: "문단, 목록, 링크, 진한 낱말이 섞인 긴 글(소개 문단, 약관과 정책). 한 줄은 720px 까지이고, 문단 사이는 글자 한 줄 높이만큼 띄웁니다.",
+    avoid: "짧은 문단 하나는 Body 로 씁니다. 긴 글 안에 제목 크기를 따로 두지 않습니다(제목은 바깥에 CardTitle 로).",
+    code: `<div className="n-prose">\n  <p>회사는 서비스 운영에 필요한 범위에서 아래 업체에 처리를 맡깁니다.</p>\n  <ul>\n    <li>결제 처리</li>\n    <li>데이터베이스 운영</li>\n  </ul>\n  <p><strong>카드 번호는 저장하지 않습니다.</strong> 자세한 내용은 <a href="#">개인정보처리방침</a>에 있습니다.</p>\n</div>`,
+    render: () => (
+      <div className="n-prose">
+        <p>회사는 서비스 운영에 필요한 범위에서 아래 업체에 처리를 맡깁니다.</p>
+        <ul>
+          <li>결제 처리</li>
+          <li>데이터베이스 운영</li>
+        </ul>
+        <p>
+          <strong>카드 번호는 저장하지 않습니다.</strong> 자세한 내용은 <a href="#n-prose">개인정보처리방침</a>에 있습니다.
+        </p>
+      </div>
+    ),
+  },
+  {
     id: "n-page",
     group: "뼈대",
     name: "페이지와 페이지 머리",
@@ -254,6 +275,40 @@ export const ENTRIES: Entry[] = [
     ),
   },
   {
+    id: "n-table",
+    group: "뼈대",
+    name: "표",
+    classes: ["n-table", "n-table-wrap", "hi", "sm"],
+    use: "칸이 둘 이상인 자료(시간표, 수집 항목과 보유 기간). 가는 가로선만 긋고 머리글은 작은 회색입니다. 줄의 이름 칸은 hi, 곁들이는 칸은 sm. 좁은 화면에서 넘치면 n-table-wrap 만 옆으로 밉니다.",
+    avoid: "칸이 하나면 줄 목록(Rows)을 씁니다. 표를 상자나 면으로 감싸지 않습니다.",
+    code: `<div className="n-table-wrap">\n  <table className="n-table">\n    <thead><tr><th>구분</th><th>수집 항목</th><th>보유 기간</th></tr></thead>\n    <tbody>\n      <tr><td className="hi">회원가입</td><td>이메일 주소, 비밀번호</td><td className="sm">회원 탈퇴 시까지</td></tr>\n    </tbody>\n  </table>\n</div>`,
+    render: () => (
+      <div className="n-table-wrap">
+        <table className="n-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>수집 항목</th>
+              <th>보유 기간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="hi">회원가입</td>
+              <td>이메일 주소, 비밀번호</td>
+              <td className="sm">회원 탈퇴 시까지</td>
+            </tr>
+            <tr>
+              <td className="hi">결제</td>
+              <td>결제 승인번호, 결제 금액과 일시</td>
+              <td className="sm">5년</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    ),
+  },
+  {
     id: "n-timeline",
     group: "뼈대",
     name: "연도별 이력",
@@ -363,6 +418,34 @@ export const ENTRIES: Entry[] = [
           2분 무료 진단
         </TextLink>
       </Actions>
+    ),
+  },
+  {
+    id: "n-field",
+    group: "조작부",
+    name: "입력 칸",
+    classes: ["n-field", "n-label"],
+    use: "글을 넣는 칸(input, textarea, select)과 그 위의 칸 이름. 칸 높이 52px, 칸 안의 글자는 16px(휴대폰이 화면을 키우지 않게).",
+    avoid: "칸 이름을 칸 안의 안내 글(placeholder)로 대신하지 않습니다.",
+    code: `<div>\n  <label className="n-label" htmlFor="email">이메일</label>\n  <input id="email" type="email" className="n-field" />\n</div>\n<div>\n  <label className="n-label" htmlFor="memo">요청 사항</label>\n  <textarea id="memo" className="n-field" />\n</div>`,
+    render: () => (
+      <>
+        <div>
+          <label className="n-label" htmlFor="cat-email">
+            이메일
+          </label>
+          <input id="cat-email" type="email" className="n-field" placeholder="name@company.com" />
+        </div>
+        <div>
+          <label className="n-label" htmlFor="cat-size">
+            인원
+          </label>
+          <select id="cat-size" className="n-field" defaultValue="20">
+            <option value="20">20명 이하</option>
+            <option value="50">50명 이하</option>
+          </select>
+        </div>
+      </>
     ),
   },
 ];
