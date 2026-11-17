@@ -15,6 +15,11 @@ html:has(.night),
 html:has(.night) body {
   background: #000000;
 }
+/* 라이트(.night.light)가 있는 문서는 흰 바탕. 라이트는 페이지 맨 바깥에 붙인다(어두운 페이지의 일부에만 붙이면 문서 바탕이 흰색이 된다) */
+html:has(.night.light),
+html:has(.night.light) body {
+  background: #ffffff;
+}
 
 /* 화면에는 안 보이고 화면 낭독기만 읽는 글(두 톤 제목 앞의 구간 이름) */
 .night .n-sr {

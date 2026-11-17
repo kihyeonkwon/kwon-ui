@@ -32,6 +32,7 @@ const ast = postcss.parse(css);
 const classes = new Set();
 const modifiers = new Set();
 const tokens = [];
+const light = {}; // 라이트(.night.light)에서 다른 값
 ast.walkRules((rule) => {
   for (const name of rule.selector.match(/\.(-?[a-zA-Z_][\w-]*)/g) ?? []) {
     const n = name.slice(1);
@@ -42,6 +43,9 @@ ast.walkRules((rule) => {
 ast.walkDecls((d) => {
   if (d.prop.startsWith("--") && d.parent.selector === ".night" && d.parent.parent.type === "root") {
     tokens.push({ name: d.prop, value: d.value.replace(/\s+/g, " ") });
+  }
+  if (d.prop.startsWith("--") && d.parent.selector === ".night.light" && d.parent.parent.type === "root") {
+    light[d.prop] = d.value.replace(/\s+/g, " ");
   }
 });
 const names = { version: pkg.version, scope: "night", classes: [...classes].sort(), modifiers: [...modifiers].sort(), tokens: tokens.map((t) => t.name) };
@@ -75,6 +79,7 @@ md.push(`화면을 만들기 전에 이 목록에서 고른다. 여기 없는 �
 md.push(`## 쓰는 법`, ``);
 md.push("```tsx", `import "kwon-ui/kwon-ui.css"; // 앱의 레이아웃에서 한 번`, `import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from "kwon-ui";`, "```", ``);
 md.push(`- 페이지 맨 바깥에 \`.night\` 가 있어야 한다(\`<Page>\` 가 붙인다).`);
+md.push(`- 흰 바탕 화면(라이트)은 \`.night\` 에 \`.light\` 를 함께 붙인다(\`<Page light>\`). 조각은 같고 색 토큰만 바뀐다. 사진 판과 떠 있는 메뉴의 알약, 메뉴판은 라이트에서도 어두운 판이다. 라이트는 페이지 맨 바깥에 붙인다.`);
 md.push(`- 색, 글자 크기, 모서리, 폭은 토큰(\`var(--n-…)\`)으로만 쓴다. 값을 직접 쓰지 않는다.`);
 md.push(`- 링크는 \`as\` 로 프레임워크의 링크 컴포넌트를 넘긴다: \`<Pill as={Link} href="/contact">\`.`);
 md.push(`- 조각에는 바깥 여백(margin)이 없다. 조각 사이 간격은 앱에서 준다.`);
@@ -91,8 +96,8 @@ for (const g of GROUPS) {
     md.push("```tsx", e.code, "```", ``);
   }
 }
-md.push(`## 토큰`, ``, `값은 \`src/css/tokens.css\` 에만 있다. \`.night\` 안에서 쓴다.`, ``, `| 이름 | 값 |`, `|---|---|`);
-for (const t of tokens) md.push(`| \`${t.name}\` | \`${t.value}\` |`);
+md.push(`## 토큰`, ``, `값은 \`src/css/tokens.css\` 에만 있다. \`.night\` 안에서 쓴다. 라이트 칸은 \`.night.light\` 에서 바뀌는 값이다(빈 칸은 같은 값).`, ``, `| 이름 | 값 | 라이트 |`, `|---|---|---|`);
+for (const t of tokens) md.push(`| \`${t.name}\` | \`${t.value}\` | ${light[t.name] && light[t.name] !== t.value ? `\`${light[t.name]}\`` : ""} |`);
 md.push(``);
 writeFileSync(join(root, "CATALOG.md"), md.join("\n"));
 
@@ -123,7 +128,11 @@ const tokenRows = tokens
     (t) => `
           <div class="n-row">
             <p class="n-row-label cat-mono">${esc(t.name)}</p>
-            <p class="n-small cat-mono">${isColor(t.value) ? `<span class="cat-swatch" style="background:${t.value}"></span>` : ""}${esc(t.value)}</p>
+            <p class="n-small cat-mono">${isColor(t.value) ? `<span class="cat-swatch" style="background:${t.value}"></span>` : ""}${esc(t.value)}${
+              light[t.name] && light[t.name] !== t.value
+                ? `<br><span class="cat-light">라이트 </span>${isColor(light[t.name]) ? `<span class="cat-swatch" style="background:${light[t.name]}"></span>` : ""}${esc(light[t.name])}`
+                : ""
+            }</p>
           </div>`,
   )
   .join("");
@@ -163,6 +172,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cat-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .cat-swatch { display: inline-block; width: 14px; height: 14px; margin-right: 10px; border: 1px solid var(--n-line); border-radius: 4px; vertical-align: -2px; }
 .cat-foot { padding: 0 0 96px; }
+.cat-light { color: var(--n-dim); }
 @media (min-width: 768px) {
   .cat-entry { grid-template-columns: 200px minmax(0, 1fr); }
   .cat-stage { padding: 40px; }
@@ -178,6 +188,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <div class="n-actions">
       ${GROUPS.map((g) => `<a class="n-link" href="#${g.name}">${g.name}</a>`).join("\n      ")}
       <a class="n-link" href="#토큰">토큰</a>
+      <button class="n-pill ghost" type="button" id="cat-theme">라이트로 보기</button>
     </div>
   </header>
   <main>${GROUPS.map(groupHtml).join("")}
@@ -195,6 +206,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   <footer class="n-wrap cat-foot">
     <p class="n-small">kwon-ui ${pkg.version} · 조각 ${ENTRIES.length}개 · 토큰 ${tokens.length}개</p>
   </footer>
+  <script>
+    // 라이트로 보기: 맨 바깥(body.night)에 light 를 붙였다 뗀다. 주소 끝에 ?light 를 붙이면 라이트로 연다
+    (function () {
+      var b = document.body, t = document.getElementById("cat-theme");
+      function set(on) { b.classList.toggle("light", on); t.textContent = on ? "다크로 보기" : "라이트로 보기"; }
+      set(/[?&]light(&|$)/.test(location.search));
+      t.addEventListener("click", function () { set(!b.classList.contains("light")); });
+    })();
+  </script>
 </body>
 </html>
 `;

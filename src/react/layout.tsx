@@ -4,10 +4,15 @@ import { cx, type PolyProps } from "./util.js";
 
 type BoxProps = { className?: string; children?: ReactNode };
 
-/** 하위 페이지의 맨 바깥. 검은 바탕과 떠 있는 메뉴 자리(위 여백)를 준다. */
-export function Page<T extends ElementType = "div">({ as, className, ...rest }: PolyProps<T, BoxProps>) {
+/** 하위 페이지의 맨 바깥. 검은 바탕과 떠 있는 메뉴 자리(위 여백)를 준다. light 면 흰 바탕(라이트)이다. */
+export function Page<T extends ElementType = "div">({
+  as,
+  light,
+  className,
+  ...rest
+}: PolyProps<T, BoxProps & { light?: boolean }>) {
   const Tag: ElementType = as ?? "div";
-  return <Tag className={cx("night n-page", className)} {...rest} />;
+  return <Tag className={cx("night", light && "light", "n-page", className)} {...rest} />;
 }
 
 /** 페이지 머리: 제목 한 줄, 받쳐 주는 문단 하나, 버튼 줄. */

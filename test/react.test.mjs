@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { createElement as h } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Body, CtaBand, PageHead, PhotoPanel, Pill, Row, Rows, Section, SectionHead, TextLink, Title, hi, titleText, tone } from "../dist/react/index.js";
+import { Body, CtaBand, Page, PageHead, PhotoPanel, Pill, Row, Rows, Section, SectionHead, TextLink, Title, hi, titleText, tone } from "../dist/react/index.js";
 
 const html = (node) => renderToStaticMarkup(node);
 const frag = (node) => renderToStaticMarkup(h("div", null, node)).slice(5, -6);
@@ -30,6 +30,12 @@ test("Section: rule 은 선으로 시작하고 slim 은 짧은 구간이다", ()
   assert.equal(html(h(Section, { id: "courses" }, "가")), '<section class="n-sect" id="courses"><div class="n-wrap">가</div></section>');
   assert.equal(html(h(Section, { rule: true }, "가")), '<section class="n-sect ruled"><div class="n-wrap">가</div></section>');
   assert.equal(html(h(Section, { slim: true, rule: true, bare: true }, "가")), '<section class="n-sect slim ruled">가</section>');
+});
+
+test("Page: 맨 바깥 판, light 는 흰 바탕", () => {
+  assert.equal(html(h(Page, null, "가")), '<div class="night n-page">가</div>');
+  assert.equal(html(h(Page, { light: true }, "가")), '<div class="night light n-page">가</div>');
+  assert.equal(html(h(Page, { as: "main", light: true, className: "pb-24" }, "가")), '<main class="night light n-page pb-24">가</main>');
 });
 
 test("PhotoPanel: 사진은 판의 바로 아래에, 글은 안쪽 상자에", () => {

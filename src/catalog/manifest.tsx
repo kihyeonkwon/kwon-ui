@@ -148,8 +148,8 @@ export const ENTRIES: Entry[] = [
     group: "뼈대",
     name: "페이지와 페이지 머리",
     component: "Page, PageHead",
-    classes: ["night", "n-page", "n-page-head", "n-wrap"],
-    use: "하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다.",
+    classes: ["night", "light", "n-page", "n-page-head", "n-wrap"],
+    use: "하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다. 흰 바탕 화면은 Page 에 light 를 줍니다(night 와 light 가 함께 붙습니다). 조각은 같고 색 토큰만 바뀝니다.",
     code: `<Page>\n  <PageHead\n    title="교육 과정"\n    lead="직무와 수준에 맞춰 고르실 수 있습니다."\n    actions={<Pill as={Link} href="/contact">교육 문의하기</Pill>}\n  />\n  …\n</Page>`,
     render: () => (
       <PageHead
