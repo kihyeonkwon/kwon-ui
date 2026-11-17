@@ -66,6 +66,8 @@ test("Rows, Row", () => {
 test("Pill, TextLink: as 로 태그를 바꾸고 나머지 속성은 그대로 넘긴다", () => {
   assert.equal(html(h(Pill, { href: "/contact" }, "문의")), '<a class="n-pill" href="/contact">문의</a>');
   assert.equal(html(h(Pill, { as: "button", type: "button", ghost: true }, "시작")), '<button class="n-pill ghost" type="button">시작</button>');
+  assert.equal(html(h(Pill, { as: "button", type: "submit", sm: true }, "저장")), '<button class="n-pill sm" type="submit">저장</button>');
+  assert.equal(html(h(Pill, { href: "#", ghost: true, sm: true }, "취소")), '<a class="n-pill ghost sm" href="#">취소</a>');
   assert.equal(html(h(TextLink, { href: "/about", arrow: true }, "회사소개 보기")), '<a class="n-link" href="/about">회사소개 보기<span aria-hidden="true">→</span></a>');
 });
 

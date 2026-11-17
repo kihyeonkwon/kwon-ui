@@ -376,15 +376,21 @@ export const ENTRIES: Entry[] = [
     group: "조작부",
     name: "알약 버튼",
     component: "Pill",
-    classes: ["n-pill", "ghost"],
-    use: "한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때).",
-    avoid: "흰 버튼 둘을 나란히 두지 않습니다.",
-    code: `<Pill as={Link} href="/contact">교육 문의하기</Pill>\n<Pill as="button" type="button" ghost onClick={open}>진단 시작</Pill>`,
+    classes: ["n-pill", "ghost", "sm"],
+    use: "한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때). sm 은 앱 화면(계정, 결제, 강의실, 워크스페이스)의 작은 알약으로 높이 36px, 글자는 작은 글 크기입니다.",
+    avoid: "흰 버튼 둘을 나란히 두지 않습니다. 소개 페이지의 주 행동에는 sm 을 쓰지 않습니다.",
+    code: `<Pill as={Link} href="/contact">교육 문의하기</Pill>\n<Pill as="button" type="button" ghost onClick={open}>진단 시작</Pill>\n<Pill as="button" type="submit" sm>저장</Pill>`,
     render: () => (
       <Actions>
         <Pill href="#n-pill">교육 문의하기</Pill>
         <Pill href="#n-pill" ghost>
           진단 시작
+        </Pill>
+        <Pill href="#n-pill" sm>
+          저장
+        </Pill>
+        <Pill href="#n-pill" ghost sm>
+          취소
         </Pill>
       </Actions>
     ),

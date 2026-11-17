@@ -1,6 +1,6 @@
 # kwon-ui 카탈로그
 
-버전 0.6.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
+버전 0.7.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
 
 화면을 만들기 전에 이 목록에서 고른다. 여기 없는 조각이 필요하면 페이지에서 새로 만들지 않고, kwon-ui 에 추가를 제안한다.
 
@@ -39,7 +39,7 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 | 표 | (클래스만) | `.n-table` | 칸이 둘 이상인 자료(시간표, 수집 항목과 보유 기간). 가는 가로선만 긋고 머리글은 작은 회색입니다. 줄의 이름 칸은 hi, 곁들이는 칸은 sm. 좁은 화면에서 넘치면 n-table-wrap 만 옆으로 밉니다. |
 | 연도별 이력 | (클래스만) | `.n-timeline` | 해마다 쌓인 이력. 왼쪽에 연도, 오른쪽에 그 해의 줄들. 많으면 앞의 몇 줄만 보이고 '외 N건'으로 접습니다. |
 | 문의 띠 | `<CtaBand>` | `.n-cta-band` | 페이지 끝의 마지막 행동. 왼쪽에 한 줄 문장, 오른쪽에 버튼 줄. 한 페이지에 하나. |
-| 알약 버튼 | `<Pill>` | `.n-pill` | 한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때). |
+| 알약 버튼 | `<Pill>` | `.n-pill` | 한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때). sm 은 앱 화면(계정, 결제, 강의실, 워크스페이스)의 작은 알약으로 높이 36px, 글자는 작은 글 크기입니다. |
 | 글자 링크 | `<TextLink>` | `.n-link` | 버튼 옆의 둘째 행동, 본문 아래의 '더 보기'. arrow 를 주면 끝에 화살표가 붙습니다. |
 | 버튼 줄 | `<Actions>` | `.n-actions` | 버튼과 글자 링크를 나란히 놓는 줄. 버튼 하나와 링크 하나까지. |
 | 입력 칸 | (클래스만) | `.n-field` | 글을 넣는 칸(input, textarea, select)과 그 위의 칸 이름. 칸 높이 52px, 칸 안의 글자는 16px(휴대폰이 화면을 키우지 않게). |
@@ -292,13 +292,14 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 
 ### 알약 버튼
 
-`<Pill>` · `.n-pill` `.ghost`
+`<Pill>` · `.n-pill` `.ghost` `.sm`
 
-한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때). 흰 버튼 둘을 나란히 두지 않습니다.
+한 화면의 주 행동 하나. 높이 48px. ghost 는 어두운 면(둘째 행동이 꼭 버튼이어야 할 때). sm 은 앱 화면(계정, 결제, 강의실, 워크스페이스)의 작은 알약으로 높이 36px, 글자는 작은 글 크기입니다. 흰 버튼 둘을 나란히 두지 않습니다. 소개 페이지의 주 행동에는 sm 을 쓰지 않습니다.
 
 ```tsx
 <Pill as={Link} href="/contact">교육 문의하기</Pill>
 <Pill as="button" type="button" ghost onClick={open}>진단 시작</Pill>
+<Pill as="button" type="submit" sm>저장</Pill>
 ```
 
 ### 글자 링크

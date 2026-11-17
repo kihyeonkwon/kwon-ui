@@ -31,6 +31,13 @@
 .night .n-pill.ghost:hover {
   background: var(--n-ghost-hover);
 }
+/* 작은 알약: 앱 화면(계정, 결제, 강의실, 워크스페이스)의 버튼. 높이 36px, 작은 글 크기 */
+.night .n-pill.sm {
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  font-size: var(--n-fs-small);
+}
 .night .n-pill:focus-visible {
   outline: 2px solid var(--n-focus);
   outline-offset: 3px;

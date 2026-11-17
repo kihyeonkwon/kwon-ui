@@ -4,12 +4,18 @@ import { cx, type PolyProps } from "./util.js";
 type ControlProps = { className?: string; children?: ReactNode };
 
 /**
- * 알약 버튼. 한 화면의 주 행동 하나에 쓴다. ghost 는 어두운 면(둘째 행동).
+ * 알약 버튼. 한 화면의 주 행동 하나에 쓴다. ghost 는 어두운 면(둘째 행동). sm 은 앱 화면의 작은 알약(높이 36px).
  * 링크면 as 로 프레임워크의 링크 컴포넌트를, 단추면 as="button" 을 넘긴다.
  */
-export function Pill<T extends ElementType = "a">({ as, ghost, className, ...rest }: PolyProps<T, ControlProps & { ghost?: boolean }>) {
+export function Pill<T extends ElementType = "a">({
+  as,
+  ghost,
+  sm,
+  className,
+  ...rest
+}: PolyProps<T, ControlProps & { ghost?: boolean; sm?: boolean }>) {
   const Tag: ElementType = as ?? "a";
-  return <Tag className={cx("n-pill", ghost && "ghost", className)} {...rest} />;
+  return <Tag className={cx("n-pill", ghost && "ghost", sm && "sm", className)} {...rest} />;
 }
 
 /** 글자 링크. 버튼 옆의 둘째 행동이나 본문 아래의 '더 보기'. arrow 를 주면 끝에 화살표가 붙는다. */
