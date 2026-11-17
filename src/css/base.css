@@ -15,10 +15,17 @@ html:has(.night),
 html:has(.night) body {
   background: #000000;
 }
-/* 라이트(.night.light)가 있는 문서는 흰 바탕. 라이트는 페이지 맨 바깥에 붙인다(어두운 페이지의 일부에만 붙이면 문서 바탕이 흰색이 된다) */
+/* 라이트(.night.light)가 있는 문서는 흰 바탕. 라이트는 페이지 맨 바깥에 붙인다(어두운 페이지의 일부에만 붙이면 문서 바탕이 흰색이 된다).
+ * 문서 전체를 라이트로 바꾼 문서(html.light)도 흰 바탕 */
 html:has(.night.light),
-html:has(.night.light) body {
+html:has(.night.light) body,
+html.light,
+html.light body {
   background: #ffffff;
+}
+/* 라이트 안의 어두운 구간(.n-dark)은 글자색도 다시 잡는다. 바깥의 진한 회색 글자를 물려받지 않게 */
+.night .n-dark {
+  color: var(--n-hi);
 }
 
 /* 화면에는 안 보이고 화면 낭독기만 읽는 글(두 톤 제목 앞의 구간 이름) */

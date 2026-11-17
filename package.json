@@ -1,6 +1,6 @@
 {
   "name": "kwon-ui",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "권앤컴퍼니의 세 제품(홈페이지, 스킬캠퍼스, Projects)이 같이 쓰는 디자인 시스템: 토큰, 글자, 뼈대, 컴포넌트, 검사기",
   "license": "UNLICENSED",
   "repository": {

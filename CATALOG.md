@@ -1,6 +1,6 @@
 # kwon-ui 카탈로그
 
-버전 0.7.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
+버전 0.8.0. 이 파일은 `npm run build` 가 `src/catalog/manifest.tsx` 에서 만든다. 직접 고치지 않는다.
 
 화면을 만들기 전에 이 목록에서 고른다. 여기 없는 조각이 필요하면 페이지에서 새로 만들지 않고, kwon-ui 에 추가를 제안한다.
 
@@ -28,7 +28,7 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 | 작은 제목 | `<CardTitle>` | `.n-card-title` | 목록 줄이나 카드 안의 제목. 본문과 같은 크기이고 진한 글자입니다. |
 | 작은 글 | `<Small>` | `.n-small` | 캡션, 기준, 라벨. 숫자 폭을 맞춰야 하면 num 을 줍니다. |
 | 긴 글 | (클래스만) | `.n-prose` | 문단, 목록, 링크, 진한 낱말이 섞인 긴 글(소개 문단, 약관과 정책). 한 줄은 720px 까지이고, 문단 사이는 글자 한 줄 높이만큼 띄웁니다. |
-| 페이지와 페이지 머리 | `<Page>` `<PageHead>` | `.n-page` | 하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다. 흰 바탕 화면은 Page 에 light 를 줍니다(night 와 light 가 함께 붙습니다). 조각은 같고 색 토큰만 바뀝니다. |
+| 페이지와 페이지 머리 | `<Page>` `<PageHead>` | `.n-page` | 하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다. 흰 바탕 화면은 Page 에 light 를 줍니다(night 와 light 가 함께 붙습니다). 조각은 같고 색 토큰만 바뀝니다. 운영체제 설정이나 방문자의 선택으로 문서 전체를 흰 바탕으로 바꿀 때는 html 에 light 를 붙입니다(언제 붙일지는 앱이 정합니다). 그 안에서도 어둡게 둘 구간(어두운 그림이나 영상 위에 흰 글을 얹은 곳)에는 n-dark 를 붙입니다. |
 | 구간 | `<Section>` | `.n-sect` | 페이지를 이루는 구간 하나. 위아래 여백(넓은 화면 128/96px)과 내용 폭을 줍니다. rule 은 앞 구간과의 사이에 가는 선을 내용 폭만큼 긋습니다. slim 은 문장 하나와 버튼 하나뿐인 짧은 구간의 여백(넓은 화면 80px)입니다. |
 | 구간 머리 | `<SectionHead>` | `.n-head` | 구간의 시작. 왼쪽에 한 줄 제목, 오른쪽에 본문. rule 을 주면 가는 선 아래에서 시작합니다. |
 | 가는 선 | (클래스만) | `.n-rule` | 내용 위에 가는 선 하나를 긋습니다. 구간 머리의 선은 SectionHead 의 rule 로 긋습니다. |
@@ -125,9 +125,9 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 
 ### 페이지와 페이지 머리
 
-`<Page>`, `<PageHead>` · `.night` `.light` `.n-page` `.n-page-head` `.n-wrap`
+`<Page>`, `<PageHead>` · `.night` `.light` `.n-dark` `.n-page` `.n-page-head` `.n-wrap`
 
-하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다. 흰 바탕 화면은 Page 에 light 를 줍니다(night 와 light 가 함께 붙습니다). 조각은 같고 색 토큰만 바뀝니다.
+하위 페이지의 맨 바깥과 머리. 제목 한 줄, 문단 하나, 버튼 줄로 시작합니다. 흰 바탕 화면은 Page 에 light 를 줍니다(night 와 light 가 함께 붙습니다). 조각은 같고 색 토큰만 바뀝니다. 운영체제 설정이나 방문자의 선택으로 문서 전체를 흰 바탕으로 바꿀 때는 html 에 light 를 붙입니다(언제 붙일지는 앱이 정합니다). 그 안에서도 어둡게 둘 구간(어두운 그림이나 영상 위에 흰 글을 얹은 곳)에는 n-dark 를 붙입니다.
 
 ```tsx
 <Page>
@@ -396,33 +396,33 @@ import { Page, PageHead, Section, SectionHead, Rows, Row, Pill, TextLink } from 
 
 | 이름 | 값 | 라이트 |
 |---|---|---|
-| `--n-bg` | `#000000` | `#ffffff` |
-| `--n-panel` | `#0d0d0d` | `#fafafa` |
-| `--n-card` | `#171717` | `#f4f4f5` |
-| `--n-card-2` | `#202020` | `#e4e4e7` |
-| `--n-line` | `rgba(255, 255, 255, 0.1)` | `#e4e4e7` |
-| `--n-hi` | `#ffffff` | `#18181b` |
-| `--n-soft` | `rgba(255, 255, 255, 0.78)` | `#3f3f46` |
-| `--n-mid` | `rgba(255, 255, 255, 0.5)` | `#71717a` |
-| `--n-dim` | `rgba(255, 255, 255, 0.32)` | `#a1a1aa` |
-| `--n-btn` | `#ffffff` | `#18181b` |
-| `--n-btn-ink` | `#000000` | `#ffffff` |
-| `--n-btn-hover` | `#e9e9e9` | `#3f3f46` |
-| `--n-ghost` | `rgba(255, 255, 255, 0.08)` | `#f4f4f5` |
-| `--n-ghost-hover` | `rgba(255, 255, 255, 0.16)` | `#e4e4e7` |
-| `--n-focus` | `rgba(255, 255, 255, 0.55)` | `rgba(24, 24, 27, 0.55)` |
-| `--n-nav-glass` | `rgba(30, 30, 36, 0.55)` | `#18181b` |
-| `--n-menu-hover` | `rgba(255, 255, 255, 0.06)` | `rgba(24, 24, 27, 0.06)` |
-| `--n-icon-hover` | `rgba(255, 255, 255, 0.1)` | `rgba(24, 24, 27, 0.1)` |
-| `--n-tabs` | `rgba(255, 255, 255, 0.05)` | `#f4f4f5` |
-| `--n-tab-on` | `rgba(255, 255, 255, 0.12)` | `#e4e4e7` |
+| `--n-bg` | `#000000` |  |
+| `--n-panel` | `#0d0d0d` |  |
+| `--n-card` | `#171717` |  |
+| `--n-card-2` | `#202020` |  |
+| `--n-line` | `rgba(255, 255, 255, 0.1)` |  |
+| `--n-hi` | `#ffffff` |  |
+| `--n-soft` | `rgba(255, 255, 255, 0.78)` |  |
+| `--n-mid` | `rgba(255, 255, 255, 0.5)` |  |
+| `--n-dim` | `rgba(255, 255, 255, 0.32)` |  |
+| `--n-btn` | `#ffffff` |  |
+| `--n-btn-ink` | `#000000` |  |
+| `--n-btn-hover` | `#e9e9e9` |  |
+| `--n-ghost` | `rgba(255, 255, 255, 0.08)` |  |
+| `--n-ghost-hover` | `rgba(255, 255, 255, 0.16)` |  |
+| `--n-focus` | `rgba(255, 255, 255, 0.55)` |  |
+| `--n-nav-glass` | `rgba(30, 30, 36, 0.55)` |  |
+| `--n-menu-hover` | `rgba(255, 255, 255, 0.06)` |  |
+| `--n-icon-hover` | `rgba(255, 255, 255, 0.1)` |  |
+| `--n-tabs` | `rgba(255, 255, 255, 0.05)` |  |
+| `--n-tab-on` | `rgba(255, 255, 255, 0.12)` |  |
 | `--n-shade` | `rgba(0, 0, 0, 0.82)` |  |
 | `--n-shade-soft` | `rgba(0, 0, 0, 0.1)` |  |
 | `--n-on-photo` | `rgba(255, 255, 255, 0.62)` |  |
-| `--n-field` | `rgba(255, 255, 255, 0.05)` | `#ffffff` |
-| `--n-field-focus` | `rgba(255, 255, 255, 0.4)` | `rgba(24, 24, 27, 0.4)` |
-| `--n-field-option` | `#141414` | `#ffffff` |
-| `--n-underline` | `rgba(255, 255, 255, 0.35)` | `#d4d4d8` |
+| `--n-field` | `rgba(255, 255, 255, 0.05)` |  |
+| `--n-field-focus` | `rgba(255, 255, 255, 0.4)` |  |
+| `--n-field-option` | `#141414` |  |
+| `--n-underline` | `rgba(255, 255, 255, 0.35)` |  |
 | `--n-fs-display` | `clamp(34px, 3.8vw, 50px)` |  |
 | `--n-fs-title` | `clamp(26px, 2.4vw, 32px)` |  |
 | `--n-fs-body` | `18px` |  |
